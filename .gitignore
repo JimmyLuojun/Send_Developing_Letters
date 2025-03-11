@@ -1,0 +1,7 @@
+.env
+S_D_L_Venv/
+__pycache__/
+*.DS_Store
+data/processed/
+credentials.json
+token.json
