@@ -1,7 +1,7 @@
 # tests/test_workflow.py
 import unittest
 from unittest.mock import patch
-from src.models.extract_websites_from_excel import extract_company_websites
+from src.models.extract_company_data import extract_company_websites
 from src.data.skyfend_business import read_skyfend_business
 from src.models.business_extraction import extract_main_business
 from src.models.identify_cooperation_points import identify_cooperation_points
