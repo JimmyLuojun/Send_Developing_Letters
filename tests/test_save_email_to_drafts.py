@@ -1,7 +1,7 @@
-# tests/test_save_email_to_drafts.py 
+# tests/test_save_email_to_drafts.py
 import pytest
 from unittest.mock import patch, MagicMock
-from src.utils.save_email_to_drafts import save_email_to_drafts, get_credentials, save_data_to_excel
+from src.utils.save_email_to_drafts import save_email_to_drafts, get_credentials, save_data_to_excel, create_message
 from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
 import os
@@ -23,7 +23,7 @@ def test_save_email_to_drafts_success(mock_get_credentials, mock_build, mock_ser
     mock_build.return_value = mock_service[0] # return mock_service
     mock_service[1].create.return_value.execute.return_value = {'id': 'draft_id', 'message': {'id': 'msg_id'}}
 
-    draft_id = save_email_to_drafts('test@example.com', 'recipient@example.com', 'Subject', 'Body')
+    draft_id = save_email_to_drafts('test@example.com', 'recipient@example.com', 'Subject', 'Body') # Modified
     assert draft_id == 'draft_id'
     mock_service[1].create.assert_called_once() # Verify the calling
     mock_service[1].create.return_value.execute.assert_called_once()
@@ -43,14 +43,14 @@ def test_save_email_to_drafts_http_error(mock_get_credentials, mock_build, mock_
     # Use the mock_resp in the HttpError
     mock_service[1].create.return_value.execute.side_effect = HttpError(resp=mock_resp, content=b'Error')
 
-    draft_id = save_email_to_drafts('test@example.com', 'recipient@example.com', 'Subject', 'Body')
+    draft_id = save_email_to_drafts('test@example.com', 'recipient@example.com', 'Subject', 'Body') # Modified
     assert draft_id is None
     mock_service[1].create.assert_called_once()
     mock_service[1].create.return_value.execute.assert_called_once()
 
 @patch('src.utils.save_email_to_drafts.get_credentials', return_value=None)
 def test_save_email_to_drafts_no_credentials(mock_get_credentials):
-    draft_id = save_email_to_drafts('test@example.com', 'recipient@example.com', 'Subject', 'Body')
+    draft_id = save_email_to_drafts('test@example.com', 'recipient@example.com', 'Subject', 'Body') # Modified
     assert draft_id is None
     mock_get_credentials.assert_called_once()
 
@@ -100,3 +100,13 @@ def test_save_data_to_excel_exception(tmp_path, caplog):
         save_data_to_excel(data, str(test_file))  # Pass file path
         assert "Error saving data to Excel" in caplog.text
         assert f"File path: {test_file}" in caplog.text
+
+def test_create_message():
+    sender = "test@example.com"
+    recipient = "recipient@example.com"
+    subject = "Test Subject"
+    body = "Test Body"
+    message = create_message(sender, recipient, subject, body)
+    assert isinstance(message, dict)
+    assert 'raw' in message
+    # Further checks can be added to decode and verify the message content

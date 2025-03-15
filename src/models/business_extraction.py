@@ -1,4 +1,3 @@
-#/Users/junluo/Documents/Send_Developing_Letters/src/models/business_extraction.py
 # src/models/business_extraction.py
 import requests # requests is a python library, which is used to send the request to the API;
 from typing import Optional

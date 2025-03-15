@@ -1,0 +1,407 @@
+2025-03-15 17:33:07,188 - INFO - Starting processing...
+2025-03-15 17:33:07,201 - INFO - Loaded 63 rows from raw data.
+2025-03-15 17:33:07,202 - INFO - Processing row 1/63
+2025-03-15 17:33:08,500 - INFO - Extracting main business for google...
+2025-03-15 17:33:08,823 - INFO - HTTP Request: POST https://api.deepseek.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-15 17:33:17,685 - INFO - Identifying cooperation points for google...
+2025-03-15 17:33:17,935 - INFO - HTTP Request: POST https://api.deepseek.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-15 17:34:15,979 - INFO - Generating email for google...
+2025-03-15 17:34:15,980 - INFO - Entering generate_developing_letter function
+2025-03-15 17:34:16,025 - INFO - Prompt for DeepSeek API: 
+Generate a formal business development letter.
+
+Generate a formal business letter proposing a partnership.  The letter should be concise (160-230 words).
+
+**Specific Instructions and Context:**
+
+*   **Sender:** Jimmy, Overseas Sales Manager at Skyfend (a subsidiary of Autel).  # Clearly defines the sender.
+*   **Recipient:** Dear John Chen, (at google). # Dynamically includes the recipient and company.
+*   **Company Background:** We've been following google's development. # Sets a positive tone.
+*   **Skyfend's Global Presence:** Skyfend has exported devices to partners in Africa, Europe, and America. # Establishes credibility.
+*   **Focus:** Emphasize potential cooperation opportunities. # Main purpose of the letter.
+*   **FPV Drone Threats:** Emphasize Skyfend's devices for FPV drone threats and commercial drones (DJI, Autel, Parrot, etc.). # Specific product focus.
+*   **Letter Structure:** Each paragraph should consist of 2-3 sentences. # Controls letter length and readability.
+*   **Call to Action:** Propose a video meeting or call. # Clear next step.
+*   **Attachment:** Mention that a product brochure is attached. # Adds supporting material.
+*   **Subject:** Proposal for Strategic Partnership Between Skyfend and google  # Informative subject line.
+
+**Cooperation Points:**
+
+**Cooperation Points Between Skyfend (Company A) and Google (Company B):**  
+
+### 1. **AI-Powered Drone Threat Detection & Response**  
+- **Synergy:** Integrate Google’s AI/ML platforms (e.g., TensorFlow, Vertex AI) with Skyfend’s detection systems (e.g., Skyfend Defender radar, Tracer radio detector) to enhance real-time threat analysis.  
+- **Mutual Benefit:**  
+  - Skyfend gains advanced predictive analytics to reduce false positives and improve drone classification.  
+  - Google strengthens its AI ecosystem with specialized security use cases, showcasing scalability in defense applications.  
+
+### 2. **Cloud-Based Security Management**  
+- **Synergy:** Host Skyfend’s C2 software (Guider) on Google Cloud for seamless data processing, storage, and global deployment.  
+- **Mutual Benefit:**  
+  - Skyfend benefits from scalable infrastructure and edge computing for faster response times in critical scenarios.  
+  - Google expands its cloud adoption in defense/security sectors, leveraging Skyfend’s niche expertise.  
+
+### 3. **Drone Traffic Coordination for Commercial Projects**  
+- **Synergy:** Partner with Google Wing (delivery drones) to deploy Skyfend’s counter-drone tech (e.g., Spoofer, Blader) for airspace security.  
+- **Mutual Benefit:**  
+  - Skyfend gains a commercial use case in drone logistics.  
+  - Google ensures safe, uninterrupted operations for Wing, mitigating rogue drone risks.  
+
+### 4. **Android Integration for Field Operations**  
+- **Synergy:** Optimize Skyfend’s portable systems (e.g., Blader, Tracer) for Android devices, enabling mobile command via Google’s ecosystem.  
+- **Mutual Benefit:**  
+  - Skyfend enhances user experience with streamlined Android app controls.  
+  - Google strengthens enterprise adoption of Android in defense/hardware verticals.  
+
+### 5. **Geospatial Data & Threat Mapping**  
+- **Synergy:** Combine Skyfend’s drone detection data with Google Earth Engine or Maps to visualize threat hotspots.  
+- **Mutual Benefit:**  
+  - Skyfend offers clients dynamic risk maps for proactive security planning.  
+  - Google enriches its geospatial analytics with real-time security datasets, appealing to government and infrastructure clients.  
+
+**Outcome:** These collaborations position Skyfend as a tech-forward security leader while expanding Google’s reach into defense, logistics, and critical infrastructure markets.  # Inserts the identified cooperation points.
+
+**Output Format:**
+
+Return ONLY the body of the letter, formatted using basic HTML. Do *not* include any sender address, date, or recipient address *outside* the letter body. The letter *should* start *directly* with the salutation.
+
+Use the following HTML tags for formatting:
+
+*   `<p>` tags for paragraphs.  Use separate `<p>` tags for each paragraph.
+*   `<br>` for explicit line breaks where needed (e.g., within the address, after the salutation).
+*   `<strong>` or `<b>` tags for bold text (e.g., for key benefits or company names).
+*    If listing cooperation points, use a `<ul>` (unordered list) and `<li>` (list item) tags for each point.
+
+2025-03-15 17:34:16,337 - INFO - HTTP Request: POST https://api.deepseek.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-15 17:34:53,166 - INFO - Raw response from Deepseek: ChatCompletion(id='73087f38-1c11-484f-99d5-433065d778e6', choices=[Choice(finish_reason='stop', index=0, logprobs=None, message=ChatCompletionMessage(content='<p>Dear John Chen,</p>\n\n<p>We’ve been closely following Google’s innovative developments and are excited about the potential for collaboration between our companies. As the Overseas Sales Manager at <strong>Skyfend</strong>, a subsidiary of Autel, I’d like to explore how our expertise in counter-drone technology can align with Google’s cutting-edge platforms.</p>\n\n<p>Skyfend has established a strong global presence, exporting advanced devices to partners across Africa, Europe, and America. Our solutions, such as the <strong>Skyfend Defender</strong> and <strong>Tracer</strong>, are designed to address FPV drone threats and ensure airspace security against commercial drones like DJI, Autel, and Parrot.</p>\n\n<p>We propose several areas of cooperation that could yield mutual benefits:</p>\n\n<ul>\n  <li><strong>AI-Powered Drone Threat Detection:</strong> Integrating Google’s AI/ML platforms with Skyfend’s detection systems for enhanced real-time threat analysis.</li>\n  <li><strong>Cloud-Based Security Management:</strong> Hosting Skyfend’s C2 software on Google Cloud for scalable, global deployment.</li>\n  <li><strong>Drone Traffic Coordination:</strong> Partnering with Google Wing to secure airspace for delivery drones using Skyfend’s counter-drone tech.</li>\n  <li><strong>Android Integration:</strong> Optimizing Skyfend’s portable systems for Android devices to streamline field operations.</li>\n  <li><strong>Geospatial Data & Threat Mapping:</strong> Combining Skyfend’s detection data with Google Earth Engine for dynamic risk visualization.</li>\n</ul>\n\n<p>I’d love to discuss these opportunities further. Could we schedule a video meeting or call at your convenience? A product brochure is attached for your reference.</p>\n\n<p>Looking forward to your response.</p>\n\n<p>Best regards,<br>Jimmy<br>Overseas Sales Manager<br>Skyfend</p>', refusal=None, role='assistant', audio=None, function_call=None, tool_calls=None))], created=1742031256, model='deepseek-chat', object='chat.completion', service_tier=None, system_fingerprint='fp_3a5770e1b4_prod0225', usage=CompletionUsage(completion_tokens=427, prompt_tokens=1022, total_tokens=1449, completion_tokens_details=None, prompt_tokens_details=PromptTokensDetails(audio_tokens=None, cached_tokens=320), prompt_cache_hit_tokens=320, prompt_cache_miss_tokens=702))
+2025-03-15 17:34:53,167 - INFO - Saving email draft for google to testing1@gmail.com...
+2025-03-15 17:34:54,140 - INFO - file_cache is only supported with oauth2client<4.0.0
+2025-03-15 17:34:55,310 - INFO - Draft id: r5637301108555285669, Draft message: 1959928128c9fd1d
+2025-03-15 17:34:55,311 - INFO - Successfully saved email draft with ID: r5637301108555285669
+2025-03-15 17:34:55,337 - INFO - Processed and saved data for google (testing1@gmail.com)
+2025-03-15 17:34:55,337 - INFO - Processing row 2/63
+2025-03-15 17:34:55,339 - INFO - Using placeholder data for existing company google
+2025-03-15 17:34:55,339 - INFO - Saving email draft for google to testing22@gmail.com...
+2025-03-15 17:34:56,312 - INFO - file_cache is only supported with oauth2client<4.0.0
+2025-03-15 17:34:57,390 - INFO - Draft id: r1526881561354844946, Draft message: 19599281b8ab8634
+2025-03-15 17:34:57,391 - INFO - Successfully saved email draft with ID: r1526881561354844946
+2025-03-15 17:34:57,420 - INFO - Processed and saved data for google (testing22@gmail.com)
+2025-03-15 17:34:57,420 - INFO - Processing row 3/63
+2025-03-15 17:35:00,737 - INFO - Extracting main business for Droniq GmbH...
+2025-03-15 17:35:00,981 - INFO - HTTP Request: POST https://api.deepseek.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-15 17:35:10,248 - INFO - Identifying cooperation points for Droniq GmbH...
+2025-03-15 17:35:10,567 - INFO - HTTP Request: POST https://api.deepseek.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-15 17:36:12,343 - INFO - Generating email for Droniq GmbH...
+2025-03-15 17:36:12,344 - INFO - Entering generate_developing_letter function
+2025-03-15 17:36:12,392 - INFO - Prompt for DeepSeek API: 
+Generate a formal business development letter.
+
+Generate a formal business letter proposing a partnership.  The letter should be concise (160-230 words).
+
+**Specific Instructions and Context:**
+
+*   **Sender:** Jimmy, Overseas Sales Manager at Skyfend (a subsidiary of Autel).  # Clearly defines the sender.
+*   **Recipient:** Dear Alexander Wulf, (at Droniq GmbH). # Dynamically includes the recipient and company.
+*   **Company Background:** We've been following Droniq GmbH's development. # Sets a positive tone.
+*   **Skyfend's Global Presence:** Skyfend has exported devices to partners in Africa, Europe, and America. # Establishes credibility.
+*   **Focus:** Emphasize potential cooperation opportunities. # Main purpose of the letter.
+*   **FPV Drone Threats:** Emphasize Skyfend's devices for FPV drone threats and commercial drones (DJI, Autel, Parrot, etc.). # Specific product focus.
+*   **Letter Structure:** Each paragraph should consist of 2-3 sentences. # Controls letter length and readability.
+*   **Call to Action:** Propose a video meeting or call. # Clear next step.
+*   **Attachment:** Mention that a product brochure is attached. # Adds supporting material.
+*   **Subject:** Proposal for Strategic Partnership Between Skyfend and Droniq GmbH  # Informative subject line.
+
+**Cooperation Points:**
+
+**Cooperation Points Between Skyfend (Company A) and Droniq (Company B):**
+
+1. **Integrated UTM-C-UAS Solutions**  
+   - **Synergy:** Integrate Skyfend’s detection and neutralization tools (e.g., *Skyfend Defender* radar, *Skyfend Tracer* detector) into Droniq’s UTM platform to create a unified system for **managing both authorized and unauthorized drones**.  
+   - **Mutual Benefit:** Enhances Droniq’s UTM with real-time threat mitigation, while Skyfend gains access to a broader commercial user base for its C-UAS technology.  
+
+2. **Joint Training Programs for Drone Security**  
+   - **Synergy:** Develop certification courses where Droniq trains clients on safe drone operations while incorporating Skyfend’s counter-drone tools (e.g., *Skyfend Hunter* jammer) for emergency threat response.  
+   - **Mutual Benefit:** Droniq adds value to its training services, and Skyfend establishes its products as industry-standard solutions for security scenarios.  
+
+3. **Critical Infrastructure Protection Bundles**  
+   - **Synergy:** Combine Droniq’s drone-based inspection services (e.g., infrastructure monitoring) with Skyfend’s C-UAS systems (e.g., *Skyfend Blader* portable jammer) to offer **dual-purpose packages** for clients like energy plants or airports.  
+   - **Mutual Benefit:** Clients receive a turnkey solution for both operational efficiency (Droniq) and airspace security (Skyfend), increasing contract value for both companies.  
+
+4. **Data Sharing for Threat Intelligence**  
+   - **Synergy:** Skyfend’s detection systems (e.g., *Skyfend Guider* software) could share anonymized threat data with Droniq’s UTM to improve predictive analytics for rogue drone behavior.  
+   - **Mutual Benefit:** Skyfend refines its algorithms with real-world UTM data, while Droniq enhances its platform’s ability to preempt conflicts with unauthorized drones.  
+
+5. **Regulatory Compliance Co-Development**  
+   - **Synergy:** Collaborate on a compliance toolkit using Skyfend’s *Skyfend Spoofer* (to enforce geofencing) and Droniq’s expertise in regulatory consulting to help clients adhere to no-fly zones or operational guidelines.  
+   - **Mutual Benefit:** Positions both companies as leaders in “safe drone ecosystem” advocacy, appealing to government and enterprise clients seeking end-to-end compliance.  
+
+By focusing on these areas, Skyfend and Droniq can bridge the gap between drone security and operational efficiency, creating value for clients while expanding their market reach.  # Inserts the identified cooperation points.
+
+**Output Format:**
+
+Return ONLY the body of the letter, formatted using basic HTML. Do *not* include any sender address, date, or recipient address *outside* the letter body. The letter *should* start *directly* with the salutation.
+
+Use the following HTML tags for formatting:
+
+*   `<p>` tags for paragraphs.  Use separate `<p>` tags for each paragraph.
+*   `<br>` for explicit line breaks where needed (e.g., within the address, after the salutation).
+*   `<strong>` or `<b>` tags for bold text (e.g., for key benefits or company names).
+*    If listing cooperation points, use a `<ul>` (unordered list) and `<li>` (list item) tags for each point.
+
+2025-03-15 17:36:12,607 - INFO - HTTP Request: POST https://api.deepseek.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-15 17:36:41,072 - INFO - Raw response from Deepseek: ChatCompletion(id='5eb7322f-fe6b-48bc-935a-1ca54307ccdb', choices=[Choice(finish_reason='stop', index=0, logprobs=None, message=ChatCompletionMessage(content="<p>Dear Alexander Wulf,</p>\n\n<p>We have been following Droniq GmbH's impressive development in the drone industry and believe there is significant potential for collaboration between our companies. As the Overseas Sales Manager at <strong>Skyfend</strong>, a subsidiary of <strong>Autel</strong>, I am excited to explore how our expertise in counter-drone technology can complement your innovative solutions.</p>\n\n<p><strong>Skyfend</strong> has established a strong global presence, exporting advanced devices to partners across Africa, Europe, and America. Our focus on addressing FPV drone threats and securing commercial drones (e.g., DJI, Autel, Parrot) aligns well with Droniq’s mission to enhance drone operations and safety.</p>\n\n<p>We propose the following cooperation opportunities to create mutual value:</p>\n<ul>\n  <li><strong>Integrated UTM-C-UAS Solutions:</strong> Combining Skyfend’s detection tools with Droniq’s UTM platform for seamless drone management.</li>\n  <li><strong>Joint Training Programs:</strong> Developing certification courses that incorporate Skyfend’s counter-drone tools into Droniq’s training services.</li>\n  <li><strong>Critical Infrastructure Protection Bundles:</strong> Offering dual-purpose packages for operational efficiency and airspace security.</li>\n  <li><strong>Data Sharing for Threat Intelligence:</strong> Enhancing predictive analytics through shared anonymized threat data.</li>\n  <li><strong>Regulatory Compliance Co-Development:</strong> Collaborating on compliance toolkits for safe drone ecosystems.</li>\n</ul>\n\n<p>To discuss this further, I propose a video meeting or call at your convenience. A product brochure is attached for your reference.</p>\n\n<p>Looking forward to your response.</p>\n\n<p>Best regards,<br>\nJimmy<br>\nOverseas Sales Manager<br>\nSkyfend</p>", refusal=None, role='assistant', audio=None, function_call=None, tool_calls=None))], created=1742031372, model='deepseek-chat', object='chat.completion', service_tier=None, system_fingerprint='fp_3a5770e1b4_prod0225', usage=CompletionUsage(completion_tokens=403, prompt_tokens=1079, total_tokens=1482, completion_tokens_details=None, prompt_tokens_details=PromptTokensDetails(audio_tokens=None, cached_tokens=320), prompt_cache_hit_tokens=320, prompt_cache_miss_tokens=759))
+2025-03-15 17:36:41,073 - INFO - Saving email draft for Droniq GmbH to alexander.wulf@droniq.de...
+2025-03-15 17:36:42,043 - INFO - file_cache is only supported with oauth2client<4.0.0
+2025-03-15 17:36:43,169 - INFO - Draft id: r1868783385600319578, Draft message: 1959929b78993871
+2025-03-15 17:36:43,170 - INFO - Successfully saved email draft with ID: r1868783385600319578
+2025-03-15 17:36:43,186 - INFO - Processed and saved data for Droniq GmbH (alexander.wulf@droniq.de)
+2025-03-15 17:36:43,187 - INFO - Processing row 4/63
+2025-03-15 17:36:43,188 - INFO - Using placeholder data for existing company Droniq GmbH
+2025-03-15 17:36:43,188 - INFO - Saving email draft for Droniq GmbH to florian.kleinig@droniq.de...
+2025-03-15 17:36:44,128 - INFO - file_cache is only supported with oauth2client<4.0.0
+2025-03-15 17:36:45,190 - INFO - Draft id: r5580396887213992898, Draft message: 1959929be6890d15
+2025-03-15 17:36:45,194 - INFO - Successfully saved email draft with ID: r5580396887213992898
+2025-03-15 17:36:45,208 - INFO - Processed and saved data for Droniq GmbH (florian.kleinig@droniq.de)
+2025-03-15 17:36:45,208 - INFO - Processing row 5/63
+2025-03-15 17:36:45,208 - WARNING - Skipping invalid recipient email 'nan' for company: nan
+2025-03-15 17:36:45,208 - INFO - Processing row 6/63
+2025-03-15 17:36:45,208 - WARNING - Skipping invalid recipient email 'nan' for company: nan
+2025-03-15 17:36:45,208 - INFO - Processing row 7/63
+2025-03-15 17:36:45,209 - WARNING - Skipping invalid recipient email 'nan' for company: nan
+2025-03-15 17:36:45,209 - INFO - Processing row 8/63
+2025-03-15 17:36:45,209 - WARNING - Skipping invalid recipient email 'nan' for company: nan
+2025-03-15 17:36:45,209 - INFO - Processing row 9/63
+2025-03-15 17:36:45,209 - WARNING - Skipping invalid recipient email 'nan' for company: nan
+2025-03-15 17:36:45,209 - INFO - Processing row 10/63
+2025-03-15 17:36:45,209 - WARNING - Skipping invalid recipient email 'nan' for company: nan
+2025-03-15 17:36:45,209 - INFO - Processing row 11/63
+2025-03-15 17:36:45,209 - WARNING - Skipping invalid recipient email 'nan' for company: nan
+2025-03-15 17:36:45,209 - INFO - Processing row 12/63
+2025-03-15 17:36:45,209 - WARNING - Skipping invalid recipient email 'nan' for company: nan
+2025-03-15 17:36:45,209 - INFO - Processing row 13/63
+2025-03-15 17:36:45,209 - WARNING - Skipping invalid recipient email 'nan' for company: nan
+2025-03-15 17:36:45,209 - INFO - Processing row 14/63
+2025-03-15 17:36:45,210 - WARNING - Skipping invalid recipient email 'nan' for company: nan
+2025-03-15 17:36:45,210 - INFO - Processing row 15/63
+2025-03-15 17:36:45,210 - WARNING - Skipping invalid recipient email 'nan' for company: nan
+2025-03-15 17:36:45,210 - INFO - Processing row 16/63
+2025-03-15 17:36:45,210 - WARNING - Skipping invalid recipient email 'nan' for company: nan
+2025-03-15 17:36:45,210 - INFO - Processing row 17/63
+2025-03-15 17:36:45,210 - WARNING - Skipping invalid recipient email 'nan' for company: nan
+2025-03-15 17:36:45,210 - INFO - Processing row 18/63
+2025-03-15 17:36:45,210 - WARNING - Skipping invalid recipient email 'nan' for company: nan
+2025-03-15 17:36:45,210 - INFO - Processing row 19/63
+2025-03-15 17:36:45,210 - WARNING - Skipping invalid recipient email 'nan' for company: nan
+2025-03-15 17:36:45,210 - INFO - Processing row 20/63
+2025-03-15 17:36:45,210 - WARNING - Skipping invalid recipient email 'nan' for company: nan
+2025-03-15 17:36:45,210 - INFO - Processing row 21/63
+2025-03-15 17:36:45,210 - WARNING - Skipping invalid recipient email 'nan' for company: nan
+2025-03-15 17:36:45,210 - INFO - Processing row 22/63
+2025-03-15 17:36:45,211 - WARNING - Skipping invalid recipient email 'nan' for company: nan
+2025-03-15 17:36:45,211 - INFO - Processing row 23/63
+2025-03-15 17:36:45,211 - WARNING - Skipping invalid recipient email 'nan' for company: nan
+2025-03-15 17:36:45,211 - INFO - Processing row 24/63
+2025-03-15 17:36:45,211 - WARNING - Skipping invalid recipient email 'nan' for company: nan
+2025-03-15 17:36:45,211 - INFO - Processing row 25/63
+2025-03-15 17:36:45,211 - WARNING - Skipping invalid recipient email 'nan' for company: nan
+2025-03-15 17:36:45,211 - INFO - Processing row 26/63
+2025-03-15 17:36:45,211 - WARNING - Skipping invalid recipient email 'nan' for company: nan
+2025-03-15 17:36:45,211 - INFO - Processing row 27/63
+2025-03-15 17:36:45,211 - WARNING - Skipping invalid recipient email 'nan' for company: nan
+2025-03-15 17:36:45,211 - INFO - Processing row 28/63
+2025-03-15 17:36:45,211 - WARNING - Skipping invalid recipient email 'nan' for company: nan
+2025-03-15 17:36:45,211 - INFO - Processing row 29/63
+2025-03-15 17:36:45,211 - WARNING - Skipping invalid recipient email 'nan' for company: nan
+2025-03-15 17:36:45,211 - INFO - Processing row 30/63
+2025-03-15 17:36:45,211 - WARNING - Skipping invalid recipient email 'nan' for company: nan
+2025-03-15 17:36:45,211 - INFO - Processing row 31/63
+2025-03-15 17:36:45,212 - WARNING - Skipping invalid recipient email 'nan' for company: nan
+2025-03-15 17:36:45,212 - INFO - Processing row 32/63
+2025-03-15 17:36:45,212 - WARNING - Skipping invalid recipient email 'nan' for company: nan
+2025-03-15 17:36:45,212 - INFO - Processing row 33/63
+2025-03-15 17:36:45,212 - WARNING - Skipping invalid recipient email 'nan' for company: nan
+2025-03-15 17:36:45,212 - INFO - Processing row 34/63
+2025-03-15 17:36:45,212 - WARNING - Skipping invalid recipient email 'nan' for company: nan
+2025-03-15 17:36:45,212 - INFO - Processing row 35/63
+2025-03-15 17:36:45,212 - WARNING - Skipping invalid recipient email 'nan' for company: nan
+2025-03-15 17:36:45,212 - INFO - Processing row 36/63
+2025-03-15 17:36:45,212 - WARNING - Skipping invalid recipient email 'nan' for company: nan
+2025-03-15 17:36:45,212 - INFO - Processing row 37/63
+2025-03-15 17:36:45,212 - WARNING - Skipping invalid recipient email 'nan' for company: nan
+2025-03-15 17:36:45,212 - INFO - Processing row 38/63
+2025-03-15 17:36:45,212 - WARNING - Skipping invalid recipient email 'nan' for company: nan
+2025-03-15 17:36:45,212 - INFO - Processing row 39/63
+2025-03-15 17:36:45,212 - WARNING - Skipping invalid recipient email 'nan' for company: nan
+2025-03-15 17:36:45,212 - INFO - Processing row 40/63
+2025-03-15 17:36:45,212 - WARNING - Skipping invalid recipient email 'nan' for company: nan
+2025-03-15 17:36:45,213 - INFO - Processing row 41/63
+2025-03-15 17:36:45,213 - WARNING - Skipping invalid recipient email 'nan' for company: nan
+2025-03-15 17:36:45,213 - INFO - Processing row 42/63
+2025-03-15 17:36:45,213 - WARNING - Skipping invalid recipient email 'nan' for company: nan
+2025-03-15 17:36:45,213 - INFO - Processing row 43/63
+2025-03-15 17:36:45,213 - WARNING - Skipping invalid recipient email 'nan' for company: nan
+2025-03-15 17:36:45,213 - INFO - Processing row 44/63
+2025-03-15 17:36:45,213 - WARNING - Skipping invalid recipient email 'nan' for company: nan
+2025-03-15 17:36:45,213 - INFO - Processing row 45/63
+2025-03-15 17:36:45,213 - WARNING - Skipping invalid recipient email 'nan' for company: nan
+2025-03-15 17:36:45,213 - INFO - Processing row 46/63
+2025-03-15 17:36:45,213 - WARNING - Skipping invalid recipient email 'nan' for company: nan
+2025-03-15 17:36:45,213 - INFO - Processing row 47/63
+2025-03-15 17:36:45,213 - WARNING - Skipping invalid recipient email 'nan' for company: nan
+2025-03-15 17:36:45,213 - INFO - Processing row 48/63
+2025-03-15 17:36:45,213 - WARNING - Skipping invalid recipient email 'nan' for company: nan
+2025-03-15 17:36:45,213 - INFO - Processing row 49/63
+2025-03-15 17:36:45,213 - WARNING - Skipping invalid recipient email 'nan' for company: nan
+2025-03-15 17:36:45,213 - INFO - Processing row 50/63
+2025-03-15 17:36:45,213 - WARNING - Skipping invalid recipient email 'nan' for company: nan
+2025-03-15 17:36:45,214 - INFO - Processing row 51/63
+2025-03-15 17:36:45,214 - WARNING - Skipping invalid recipient email 'nan' for company: nan
+2025-03-15 17:36:45,214 - INFO - Processing row 52/63
+2025-03-15 17:36:45,214 - WARNING - Skipping invalid recipient email 'nan' for company: nan
+2025-03-15 17:36:45,214 - INFO - Processing row 53/63
+2025-03-15 17:36:45,214 - WARNING - Skipping invalid recipient email 'nan' for company: nan
+2025-03-15 17:36:45,214 - INFO - Processing row 54/63
+2025-03-15 17:36:45,214 - WARNING - Skipping invalid recipient email 'nan' for company: nan
+2025-03-15 17:36:45,214 - INFO - Processing row 55/63
+2025-03-15 17:36:45,214 - WARNING - Skipping invalid recipient email 'nan' for company: nan
+2025-03-15 17:36:45,214 - INFO - Processing row 56/63
+2025-03-15 17:36:45,214 - WARNING - Skipping invalid recipient email 'nan' for company: nan
+2025-03-15 17:36:45,214 - INFO - Processing row 57/63
+2025-03-15 17:36:45,214 - WARNING - Skipping invalid recipient email 'nan' for company: nan
+2025-03-15 17:36:45,214 - INFO - Processing row 58/63
+2025-03-15 17:36:45,214 - WARNING - Skipping invalid recipient email 'nan' for company: nan
+2025-03-15 17:36:45,214 - INFO - Processing row 59/63
+2025-03-15 17:36:45,214 - WARNING - Skipping invalid recipient email 'nan' for company: nan
+2025-03-15 17:36:45,214 - INFO - Processing row 60/63
+2025-03-15 17:36:45,214 - WARNING - Skipping invalid recipient email 'nan' for company: nan
+2025-03-15 17:36:45,215 - INFO - Processing row 61/63
+2025-03-15 17:36:45,215 - WARNING - Skipping invalid recipient email 'nan' for company: nan
+2025-03-15 17:36:45,215 - INFO - Processing row 62/63
+2025-03-15 17:36:45,215 - WARNING - Skipping invalid recipient email 'Google is a technology company that specializes in internet-related services and products, including search engines, online advertising technologies, cloud computing, software, and hardware. Its primary activity is organizing the world's information and making it universally accessible and useful through its search engine and various other digital services.' for company: google
+2025-03-15 17:36:45,215 - INFO - Processing row 63/63
+2025-03-15 17:36:45,215 - WARNING - Skipping invalid recipient email 'Google is a technology company that specializes in internet-related services and products, including search engines, online advertising, cloud computing, software, and hardware. Its primary activity is organizing the world's information and making it universally accessible and useful through its search engine and various other digital services.' for company: google
+2025-03-15 17:36:45,215 - INFO - Processing completed.
+2025-03-15 18:05:00,308 - INFO - Email to testing1@gmail.com at google already processed. Skipping.
+2025-03-15 18:05:00,308 - INFO - Email to testing22@gmail.com at google already processed. Skipping.
+2025-03-15 18:05:00,309 - INFO - Email to alexander.wulf@droniq.de at Droniq GmbH already processed. Skipping.
+2025-03-15 18:05:00,309 - INFO - Entering generate_developing_letter function
+2025-03-15 18:05:00,350 - INFO - Prompt for DeepSeek API: 
+Rephrase this letter with a fresh tone.
+
+Generate a formal business letter proposing a partnership.  The letter should be concise (160-230 words).
+
+**Specific Instructions and Context:**
+
+*   **Sender:** Jimmy, Overseas Sales Manager at Skyfend (a subsidiary of Autel).  # Clearly defines the sender.
+*   **Recipient:** Dear Florian Kleinig, (at Droniq GmbH). # Dynamically includes the recipient and company.
+*   **Company Background:** We've been following Droniq GmbH's development. # Sets a positive tone.
+*   **Skyfend's Global Presence:** Skyfend has exported devices to partners in Africa, Europe, and America. # Establishes credibility.
+*   **Focus:** Emphasize potential cooperation opportunities. # Main purpose of the letter.
+*   **FPV Drone Threats:** Emphasize Skyfend's devices for FPV drone threats and commercial drones (DJI, Autel, Parrot, etc.). # Specific product focus.
+*   **Letter Structure:** Each paragraph should consist of 2-3 sentences. # Controls letter length and readability.
+*   **Call to Action:** Propose a video meeting or call. # Clear next step.
+*   **Attachment:** Mention that a product brochure is attached. # Adds supporting material.
+*   **Subject:** Proposal for Strategic Partnership Between Skyfend and Droniq GmbH  # Informative subject line.
+
+**Cooperation Points:**
+
+**Cooperation Points Between Skyfend (Company A) and Droniq (Company B):**
+
+1. **Integrated UTM-C-UAS Solutions**  
+   - **Synergy:** Integrate Skyfend’s detection and neutralization tools (e.g., *Skyfend Defender* radar, *Skyfend Tracer* detector) into Droniq’s UTM platform to create a unified system for **managing both authorized and unauthorized drones**.  
+   - **Mutual Benefit:** Enhances Droniq’s UTM with real-time threat mitigation, while Skyfend gains access to a broader commercial user base for its C-UAS technology.  
+
+2. **Joint Training Programs for Drone Security**  
+   - **Synergy:** Develop certification courses where Droniq trains clients on safe drone operations while incorporating Skyfend’s counter-drone tools (e.g., *Skyfend Hunter* jammer) for emergency threat response.  
+   - **Mutual Benefit:** Droniq adds value to its training services, and Skyfend establishes its products as industry-standard solutions for security scenarios.  
+
+3. **Critical Infrastructure Protection Bundles**  
+   - **Synergy:** Combine Droniq’s drone-based inspection services (e.g., infrastructure monitoring) with Skyfend’s C-UAS systems (e.g., *Skyfend Blader* portable jammer) to offer **dual-purpose packages** for clients like energy plants or airports.  
+   - **Mutual Benefit:** Clients receive a turnkey solution for both operational efficiency (Droniq) and airspace security (Skyfend), increasing contract value for both companies.  
+
+4. **Data Sharing for Threat Intelligence**  
+   - **Synergy:** Skyfend’s detection systems (e.g., *Skyfend Guider* software) could share anonymized threat data with Droniq’s UTM to improve predictive analytics for rogue drone behavior.  
+   - **Mutual Benefit:** Skyfend refines its algorithms with real-world UTM data, while Droniq enhances its platform’s ability to preempt conflicts with unauthorized drones.  
+
+5. **Regulatory Compliance Co-Development**  
+   - **Synergy:** Collaborate on a compliance toolkit using Skyfend’s *Skyfend Spoofer* (to enforce geofencing) and Droniq’s expertise in regulatory consulting to help clients adhere to no-fly zones or operational guidelines.  
+   - **Mutual Benefit:** Positions both companies as leaders in “safe drone ecosystem” advocacy, appealing to government and enterprise clients seeking end-to-end compliance.  
+
+By focusing on these areas, Skyfend and Droniq can bridge the gap between drone security and operational efficiency, creating value for clients while expanding their market reach.  # Inserts the identified cooperation points.
+
+**Output Format:**
+
+Return ONLY the body of the letter, formatted using basic HTML. Do *not* include any sender address, date, or recipient address *outside* the letter body. The letter *should* start *directly* with the salutation.
+
+Use the following HTML tags for formatting:
+
+*   `<p>` tags for paragraphs.  Use separate `<p>` tags for each paragraph.
+*   `<br>` for explicit line breaks where needed (e.g., within the address, after the salutation).
+*   `<strong>` or `<b>` tags for bold text (e.g., for key benefits or company names).
+*    If listing cooperation points, use a `<ul>` (unordered list) and `<li>` (list item) tags for each point.
+
+2025-03-15 18:05:01,683 - INFO - HTTP Request: POST https://api.deepseek.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-15 18:05:31,641 - INFO - Raw response from Deepseek: ChatCompletion(id='8ade8066-5a9a-465d-9767-e31bd284ccd0', choices=[Choice(finish_reason='stop', index=0, logprobs=None, message=ChatCompletionMessage(content='<p>Dear Florian Kleinig,</p>\n\n<p>We at <strong>Skyfend</strong>, a subsidiary of Autel, have been closely following the impressive development of <strong>Droniq GmbH</strong>. With our global presence, having exported advanced counter-drone devices to partners across Africa, Europe, and America, we see significant potential for collaboration between our companies.</p>\n\n<p>Our expertise lies in addressing FPV drone threats and managing commercial drones from brands like DJI, Autel, and Parrot. We believe integrating our solutions with Droniq’s UTM platform could create a unified system for managing both authorized and unauthorized drones, enhancing operational efficiency and security for your clients.</p>\n\n<p>We propose exploring the following cooperation opportunities:</p>\n<ul>\n  <li><strong>Integrated UTM-C-UAS Solutions:</strong> Combining Skyfend’s detection tools with Droniq’s UTM for real-time threat mitigation.</li>\n  <li><strong>Joint Training Programs:</strong> Developing certification courses that incorporate Skyfend’s counter-drone tools into Droniq’s training services.</li>\n  <li><strong>Critical Infrastructure Protection Bundles:</strong> Offering dual-purpose packages for clients like energy plants or airports.</li>\n  <li><strong>Data Sharing for Threat Intelligence:</strong> Enhancing predictive analytics through shared anonymized threat data.</li>\n  <li><strong>Regulatory Compliance Co-Development:</strong> Collaborating on compliance toolkits for no-fly zones and operational guidelines.</li>\n</ul>\n\n<p>We would love to discuss these ideas further. Could we schedule a video meeting or call at your convenience? A product brochure is attached for your reference.</p>\n\n<p>Looking forward to your response.</p>\n\n<p>Best regards,<br>\nJimmy<br>\nOverseas Sales Manager<br>\nSkyfend</p>', refusal=None, role='assistant', audio=None, function_call=None, tool_calls=None))], created=1742033101, model='deepseek-chat', object='chat.completion', service_tier=None, system_fingerprint='fp_3a5770e1b4_prod0225', usage=CompletionUsage(completion_tokens=398, prompt_tokens=1083, total_tokens=1481, completion_tokens_details=None, prompt_tokens_details=PromptTokensDetails(audio_tokens=None, cached_tokens=1024), prompt_cache_hit_tokens=1024, prompt_cache_miss_tokens=59))
+2025-03-15 18:05:32,600 - INFO - file_cache is only supported with oauth2client<4.0.0
+2025-03-15 18:05:33,703 - INFO - Draft id: r-3659074607728090406, Draft message: 19599441f4f9f758
+2025-03-15 18:05:33,704 - INFO - Draft saved successfully, ID: r-3659074607728090406
+2025-03-15 18:05:33,730 - INFO - Processed and saved data for Droniq GmbH (florian.kleinig@droniq.de)
+2025-03-15 18:05:33,731 - WARNING - Skipping invalid recipient email 'nan' for company: nan
+2025-03-15 18:05:33,731 - WARNING - Skipping invalid recipient email 'nan' for company: nan
+2025-03-15 18:05:33,731 - WARNING - Skipping invalid recipient email 'nan' for company: nan
+2025-03-15 18:05:33,731 - WARNING - Skipping invalid recipient email 'nan' for company: nan
+2025-03-15 18:05:33,731 - WARNING - Skipping invalid recipient email 'nan' for company: nan
+2025-03-15 18:05:33,731 - WARNING - Skipping invalid recipient email 'nan' for company: nan
+2025-03-15 18:05:33,731 - WARNING - Skipping invalid recipient email 'nan' for company: nan
+2025-03-15 18:05:33,731 - WARNING - Skipping invalid recipient email 'nan' for company: nan
+2025-03-15 18:05:33,731 - WARNING - Skipping invalid recipient email 'nan' for company: nan
+2025-03-15 18:05:33,731 - WARNING - Skipping invalid recipient email 'nan' for company: nan
+2025-03-15 18:05:33,731 - WARNING - Skipping invalid recipient email 'nan' for company: nan
+2025-03-15 18:05:33,731 - WARNING - Skipping invalid recipient email 'nan' for company: nan
+2025-03-15 18:05:33,732 - WARNING - Skipping invalid recipient email 'nan' for company: nan
+2025-03-15 18:05:33,732 - WARNING - Skipping invalid recipient email 'nan' for company: nan
+2025-03-15 18:05:33,732 - WARNING - Skipping invalid recipient email 'nan' for company: nan
+2025-03-15 18:05:33,732 - WARNING - Skipping invalid recipient email 'nan' for company: nan
+2025-03-15 18:05:33,732 - WARNING - Skipping invalid recipient email 'nan' for company: nan
+2025-03-15 18:05:33,732 - WARNING - Skipping invalid recipient email 'nan' for company: nan
+2025-03-15 18:05:33,732 - WARNING - Skipping invalid recipient email 'nan' for company: nan
+2025-03-15 18:05:33,732 - WARNING - Skipping invalid recipient email 'nan' for company: nan
+2025-03-15 18:05:33,732 - WARNING - Skipping invalid recipient email 'nan' for company: nan
+2025-03-15 18:05:33,732 - WARNING - Skipping invalid recipient email 'nan' for company: nan
+2025-03-15 18:05:33,732 - WARNING - Skipping invalid recipient email 'nan' for company: nan
+2025-03-15 18:05:33,732 - WARNING - Skipping invalid recipient email 'nan' for company: nan
+2025-03-15 18:05:33,732 - WARNING - Skipping invalid recipient email 'nan' for company: nan
+2025-03-15 18:05:33,732 - WARNING - Skipping invalid recipient email 'nan' for company: nan
+2025-03-15 18:05:33,732 - WARNING - Skipping invalid recipient email 'nan' for company: nan
+2025-03-15 18:05:33,733 - WARNING - Skipping invalid recipient email 'nan' for company: nan
+2025-03-15 18:05:33,733 - WARNING - Skipping invalid recipient email 'nan' for company: nan
+2025-03-15 18:05:33,733 - WARNING - Skipping invalid recipient email 'nan' for company: nan
+2025-03-15 18:05:33,733 - WARNING - Skipping invalid recipient email 'nan' for company: nan
+2025-03-15 18:05:33,733 - WARNING - Skipping invalid recipient email 'nan' for company: nan
+2025-03-15 18:05:33,733 - WARNING - Skipping invalid recipient email 'nan' for company: nan
+2025-03-15 18:05:33,733 - WARNING - Skipping invalid recipient email 'nan' for company: nan
+2025-03-15 18:05:33,733 - WARNING - Skipping invalid recipient email 'nan' for company: nan
+2025-03-15 18:05:33,733 - WARNING - Skipping invalid recipient email 'nan' for company: nan
+2025-03-15 18:05:33,733 - WARNING - Skipping invalid recipient email 'nan' for company: nan
+2025-03-15 18:05:33,733 - WARNING - Skipping invalid recipient email 'nan' for company: nan
+2025-03-15 18:05:33,733 - WARNING - Skipping invalid recipient email 'nan' for company: nan
+2025-03-15 18:05:33,733 - WARNING - Skipping invalid recipient email 'nan' for company: nan
+2025-03-15 18:05:33,733 - WARNING - Skipping invalid recipient email 'nan' for company: nan
+2025-03-15 18:05:33,733 - WARNING - Skipping invalid recipient email 'nan' for company: nan
+2025-03-15 18:05:33,733 - WARNING - Skipping invalid recipient email 'nan' for company: nan
+2025-03-15 18:05:33,733 - WARNING - Skipping invalid recipient email 'nan' for company: nan
+2025-03-15 18:05:33,734 - WARNING - Skipping invalid recipient email 'nan' for company: nan
+2025-03-15 18:05:33,734 - WARNING - Skipping invalid recipient email 'nan' for company: nan
+2025-03-15 18:05:33,734 - WARNING - Skipping invalid recipient email 'nan' for company: nan
+2025-03-15 18:05:33,734 - WARNING - Skipping invalid recipient email 'nan' for company: nan
+2025-03-15 18:05:33,734 - WARNING - Skipping invalid recipient email 'nan' for company: nan
+2025-03-15 18:05:33,734 - WARNING - Skipping invalid recipient email 'nan' for company: nan
+2025-03-15 18:05:33,734 - WARNING - Skipping invalid recipient email 'nan' for company: nan
+2025-03-15 18:05:33,734 - WARNING - Skipping invalid recipient email 'nan' for company: nan
+2025-03-15 18:05:33,734 - WARNING - Skipping invalid recipient email 'nan' for company: nan
+2025-03-15 18:05:33,734 - WARNING - Skipping invalid recipient email 'nan' for company: nan
+2025-03-15 18:05:33,734 - WARNING - Skipping invalid recipient email 'nan' for company: nan
+2025-03-15 18:05:33,734 - WARNING - Skipping invalid recipient email 'nan' for company: nan
+2025-03-15 18:05:33,734 - WARNING - Skipping invalid recipient email 'nan' for company: nan
+2025-03-15 18:05:33,734 - WARNING - Skipping invalid recipient email 'Google is a technology company that specializes in internet-related services and products, including search engines, online advertising technologies, cloud computing, software, and hardware. Its primary activity is organizing the world's information and making it universally accessible and useful through its search engine and various other digital services.' for company: google
+2025-03-15 18:05:33,734 - WARNING - Skipping invalid recipient email 'Google is a technology company that specializes in internet-related services and products, including search engines, online advertising, cloud computing, software, and hardware. Its primary activity is organizing the world's information and making it universally accessible and useful through its search engine and various other digital services.' for company: google
