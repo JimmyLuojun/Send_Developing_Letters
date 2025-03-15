@@ -1,5 +1,4 @@
-#/Users/junluo/Documents/Send_Developing_Letters/src/utils/save_email_to_drafts.py
-
+# src/utils/save_email_to_drafts.py
 import os.path
 import base64
 from email.mime.text import MIMEText
@@ -12,13 +11,15 @@ from googleapiclient.errors import HttpError
 from google.auth.exceptions import RefreshError
 import logging
 import time
-import json # Import json
+import json
+import openpyxl
 
 # If modifying these scopes, delete the file token.json.
 SCOPES = ['https://www.googleapis.com/auth/gmail.compose']
 
 TOKEN_FILE = 'token.json'  # Put in the project root for simplicity
-CREDENTIALS_FILE = 'credentials.json' # Project root
+CREDENTIALS_FILE = 'credentials.json'  # Project root
+
 
 def get_credentials():
     """Gets valid Google API credentials, handling initial authorization and refresh."""
@@ -58,48 +59,44 @@ def get_credentials():
 
     return creds
 
-def create_draft(service, user_id, message):
-    """
-    Creates a draft email.
+
+def create_message(sender, to, subject, message_text):
+    """Create a message for an email."""
+    message = MIMEText(message_text, 'html') # Set the type
+    message['to'] = to
+    message['from'] = sender # Use sender parameter
+    message['subject'] = subject
+    raw_message = base64.urlsafe_b64encode(message.as_bytes()).decode()
+    return {'raw': raw_message}
+
+
+
+def save_email_to_drafts(sender, recipient, subject, body): # sender parameter
+    """Saves an email as a draft in Gmail.
 
     Args:
-        service: Authorized Gmail API service instance.
-        user_id: User's email address. The special value "me"
-        can be used to indicate the authenticated user.
-        message: Message to be placed in the draft.
+        sender: Email address of the sender.  Now correctly used!
+        recipient: Email address of the recipient.
+        subject: Subject of the email.
+        body: Body of the email.
 
     Returns:
-        Draft object, including draft id and message meta data.  None on error.
+        The ID of the created draft, or None if an error occurred.
     """
-    try:
-        draft = {'message': message}
-        draft = service.users().drafts().create(userId=user_id, body=draft).execute()
-        print(f"Draft id: {draft['id']}, Message id: {draft['message']['id']}")
-        return draft
-    except HttpError as error:
-        print(f'An error occurred: {error}')
-        return None
-
-def save_email_to_drafts(account: str, recipient: str, subject: str, body: str) -> Optional[str]:
-    """
-    Saves an email as a draft in Gmail.
-    """
-    creds = get_credentials()  # Get valid credentials
+    creds = get_credentials()
     if not creds:
-        logging.error("Failed to obtain valid credentials. Cannot save draft.")
+        logging.error("Failed to retrieve valid credentials.")
         return None
-
     try:
+        # Create Gmail service
         service = build('gmail', 'v1', credentials=creds)
 
-        message = MIMEText(body, 'html')
-        message['to'] = recipient
-        message['subject'] = subject
-        encoded_message = base64.urlsafe_b64encode(message.as_bytes()).decode()
+        # Create the email message
+        message = create_message(sender, recipient, subject, body) # Use sender
 
-        create_message = {'message': {'raw': encoded_message}}
-        draft = service.users().drafts().create(userId=account, body=create_message).execute()
-        logging.info(f'Draft id: {draft["id"]}, Message id: {draft["message"]["id"]}')
+        # Save the message as a draft
+        draft = service.users().drafts().create(userId="me", body={"message": message}).execute() # userId="me"
+        logging.info(f'Draft id: {draft["id"]}, Draft message: {draft["message"]["id"]}')
         return draft['id']
 
     except HttpError as error:
@@ -109,16 +106,52 @@ def save_email_to_drafts(account: str, recipient: str, subject: str, body: str) 
         logging.error(f"An unexpected error occurred: {e}")
         return None
 
+
+def save_data_to_excel(data, file_path):  # Add file_path
+    """Saves data to the Excel file in a new row."""
+    try:
+        if not os.path.exists(file_path):  # Use file_path
+            # Create a new workbook and add headers if the file doesn't exist
+            workbook = openpyxl.Workbook()
+            sheet = workbook.active
+            headers = list(data.keys())  # Get headers from the data keys
+            sheet.append(headers)
+        else:
+            workbook = openpyxl.load_workbook(file_path)  # Use file_path
+            sheet = workbook.active
+
+        # Append the data values in a new row
+        row_data = list(data.values())
+        sheet.append(row_data)
+        workbook.save(file_path)  # Use file_path
+        logging.info(f"Data saved to Excel successfully.  File path: {file_path}") # Log file_path
+
+    except Exception as e:
+        logging.error(f"Error saving data to Excel: {e}, File path: {file_path}") # Log file_path
+
+
+
 if __name__ == '__main__':
-    # Example Usage (replace with your actual values)
-    email_account = 'jimluoggac@gmail.com' #Your Gmail
-    recipient_email = 'recipient@example.com'# Test email
+    # Example Usage (replace with your actual values and file path)
+    email_account = 'your_email@example.com'
+    recipient_email = 'recipient@example.com'
     email_subject = 'Test Email with Robust Auth'
-    email_body = 'This is a <b>test</b> email with <i>robust</i> authorization handling.'
-    logging.basicConfig(level=logging.INFO)  # For testing
+    email_body = 'This is a test email.'
+    logging.basicConfig(level=logging.INFO)
 
     draft_id = save_email_to_drafts(email_account, recipient_email, email_subject, email_body)
     if draft_id:
         print(f"Email saved to drafts. Draft ID: {draft_id}")
+        current_time = time.strftime("%Y/%m/%d %H:%M")
+        data_to_save = {
+            'saving_file_time': current_time,
+            'company': 'Test Company',
+            'website': 'http://test.com',
+            'main_business': 'Test business',
+            'cooperation_letter_conter': 'Test letter',
+            'recipient_email': recipient_email,
+            'contact_person': 'Test Contact'
+        }
+        save_data_to_excel(data_to_save, 'test_output.xlsx') # Use a file path
     else:
         print("Failed to save email to drafts.")

@@ -1,156 +1,135 @@
 import os
-import pandas as pd
 import logging
 from dotenv import load_dotenv
-import requests  # Needed for fetch_website_content
-import datetime  # Import datetime
+import requests
+import datetime
+import pathlib  # Import pathlib
+from openai import OpenAI
 
-# from src.models.extract_websites_from_excel import extract_company_websites # Rename the file
+# --- Project Root (using pathlib) ---
+PROJECT_ROOT = pathlib.Path(__file__).parent.parent
+
 from src.models.extract_company_data import extract_company_data
 from src.data.skyfend_business import read_skyfend_business
 from src.models.business_extraction import extract_main_business
 from src.models.identify_cooperation_points import identify_cooperation_points
 from src.utils.generate_developing_letters import generate_developing_letter
-# from src.utils.format_and_send_email import format_and_send_email # No send email
-from src.utils.save_email_to_drafts import save_email_to_drafts  # Save draft
+# from src.utils.format_and_send_email import format_and_send_email  # Not used
+from src.utils.save_email_to_drafts import save_email_to_drafts, save_data_to_excel
 
-# Load environment variables from .env file
+# --- Load environment variables ---
 load_dotenv()
 
-# Configure logging
-logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+# --- Configuration (PATHS SHOULD BE ABSOLUTE OR RELATIVE TO THE PROJECT ROOT) ---
+EXCEL_FILE_PATH = PROJECT_ROOT / "data" / "raw" / "test_to_read_website.xlsx"
+SKYFEND_BUSINESS_PATH = PROJECT_ROOT / "data" / "raw" / "test_main Business of Skyfend.docx"
+PROCESSED_EXCEL_FILE_PATH = PROJECT_ROOT / "data" / "processed" / "saving_company_data_after_creating_letters.xlsx" # New file path
 
-# --- Configuration (READ FROM ENVIRONMENT VARIABLES) ---
-EXCEL_FILE_PATH = "/Users/junluo/Documents/Send_Developing_Letters/data/raw/test_to_read_website.xlsx"
-SKYFEND_BUSINESS_PATH = "/Users/junluo/Documents/Send_Developing_Letters/data/raw/test_main Business of Skyfend.docx"
+API_KEY = os.getenv("API_KEY")  # Get API key from .env
+GMAIL_ACCOUNT = os.getenv("GMAIL_ACCOUNT")  #  Your Gmail account
 
-# BUSINESS_EXTRACTION_API_URL = os.getenv("BUSINESS_EXTRACTION_API_URL")
-# COOPERATION_POINTS_API_URL = os.getenv("COOPERATION_POINTS_API_URL")
-# LETTER_GENERATION_API_URL = os.getenv("LETTER_GENERATION_API_URL")
-API_KEY = os.getenv("API_KEY")
-OUTPUT_CSV_PATH = os.getenv("OUTPUT_CSV_PATH")
-GMAIL_ACCOUNT = 'jimluoggac@gmail.com'  # Add GMAIL_ACCOUNT
 
-# --- Helper Function ---
+# --- Helper Function (Corrected Error Handling) ---
 def fetch_website_content(url: str) -> str:
-    """Fetches the content of a website (using requests)."""
+    """Fetches the content of a website (using requests), with error handling."""
     try:
-        response = requests.get(url, timeout=10)
+        response = requests.get(url, timeout=10)  # 10-second timeout
         response.raise_for_status()  # Raise HTTPError for bad responses (4xx or 5xx)
         return response.text
-    except requests.exceptions.HTTPError as e:
-        logging.error(f"Error fetching website content for {url}: {e.response.status_code} {e.response.reason}")  # log the error code
-        return ""
     except requests.exceptions.RequestException as e:
         logging.error(f"Error fetching website content for {url}: {e}")
-        return ""
+        return ""  # Return an empty string on error
 
+
+# --- Main Function ---
 def main():
-    """Main workflow for the project."""
+    """Main workflow for generating and saving developing letters."""
+    logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
-    # Create the processed data directory if it doesn't exist
-    processed_data_dir = os.path.dirname(OUTPUT_CSV_PATH)
-    if not os.path.exists(processed_data_dir):
-        os.makedirs(processed_data_dir)
-
-    # Step 1: Extract company data (including emails)
+    # Step 1: Extract company data
     logging.info("Extracting company data from Excel...")
-    companies_data = extract_company_data(EXCEL_FILE_PATH)  # Get a list of dictionaries
+    companies_data = extract_company_data(str(EXCEL_FILE_PATH))
     logging.info(f"Number of companies extracted: {len(companies_data)}")
 
     if not companies_data:
         logging.error("No company data found. Exiting.")
         return
 
-    # Step 2: Read Skyfend's main business
+    # Step 2: Read Skyfend's business
     logging.info("Reading Skyfend's business description...")
-    skyfend_business = read_skyfend_business(SKYFEND_BUSINESS_PATH)
+    skyfend_business = read_skyfend_business(str(SKYFEND_BUSINESS_PATH))
     if not skyfend_business:
         logging.error("Skyfend's business description is empty. Exiting.")
         return
     logging.info(f"Skyfend's business: {skyfend_business}")
 
-    # Step 3 & 4 & 5: Process each company
-    all_company_data = []  # Store all processed data
+    # Step 3, 4, 5: Process each company
     for company_data in companies_data:
-        website = company_data['website']
-        recipient_email = company_data['recipient_email']
-        company_name = company_data['company']
-        contact_person = company_data['contact person'] # Get contact person
+        website = company_data.get('website')
+        recipient_email = company_data.get('recipient_email')
+        company_name = company_data.get('company')
+        contact_person = company_data.get('contact person')  # Corrected key
+
+        # --- Input Validation ---
+        if not website or not recipient_email:
+            logging.warning(f"Skipping company due to missing website/recipient: {company_data}")
+            continue
 
         logging.info(f"Processing website: {website}, Recipient: {recipient_email}")
 
-        # Fetch website content
+        # --- Fetch Website Content ---
         website_content = fetch_website_content(website)
         if not website_content:
             logging.warning(f"Could not retrieve content for {website}. Skipping.")
             continue
 
-        # Extract main business (using the API)
+        # --- Extract Main Business ---
         main_business = extract_main_business(API_KEY, website_content)
         if not main_business or main_business == "Unknown":
             logging.warning(f"Could not extract business for {website}. Skipping.")
             continue
         logging.info(f"Extracted business for {website}: {main_business}")
 
-        # Identify cooperation points
+        # --- Identify Cooperation Points ---
         cooperation_points = identify_cooperation_points(API_KEY, skyfend_business, main_business)
         logging.info(f"Cooperation points for {website}: {cooperation_points}")
         if cooperation_points == "No cooperation points identified":
             logging.warning(f"No cooperation points identified for {website}. Skipping.")
             continue
 
-        # Generate developing letter
+        # --- Generate Developing Letter ---
         instructions = "Please write a formal letter highlighting the cooperation opportunities."
-        # Pass contact_person and company_name
         letter_content = generate_developing_letter(API_KEY, instructions, cooperation_points, company_name, contact_person)
         logging.info(f"Generated letter for {website}")
-        if letter_content == 'No letter content generated':
+        if letter_content == 'No letter content generated': # Check the return
             logging.warning(f"No letter content generated for {website}. Skipping.")
             continue
-
-        # Get domain name from website
-        # domain_name = website.split("//")[-1].split("/")[0] # No need for domain_name
-        # if domain_name.startswith("www."):
-        #     domain_name = domain_name[4:]
-
-        email_subject = f"Potential Cooperation with Skyfend and {company_name}" # Use company name
+        # --- Prepare Email ---
+        email_subject = f"Potential Cooperation with Skyfend and {company_name}"
         email_body = letter_content
 
-        # Save email to drafts
-        try:
-            save_email_to_drafts(GMAIL_ACCOUNT, recipient_email, email_subject, email_body)
+        # --- Save Email Draft and Data ---
+        draft_id = save_email_to_drafts(GMAIL_ACCOUNT, recipient_email, email_subject, email_body) # Use sender
+        if draft_id:
             logging.info(f"Email draft saved for {recipient_email}")
-        except Exception as e:
-            logging.error(f"Failed to save email draft for {recipient_email}: {e}")
 
-        # --- Add timestamp and prepare data for saving ---
-        now = datetime.datetime.now()
-        timestamp = now.strftime("%Y-%m-%d %H:%M:%S")
+            # Prepare data for saving (consistent with your Excel file structure)
+            current_time = datetime.datetime.now().strftime("%Y/%m/%d %H:%M")
+            data_to_save = {
+                'saving_file_time': current_time,
+                'company': company_name,
+                'website': website,
+                'main_business': main_business,
+                'cooperation_letter_conter': letter_content, # Use letter_content
+                'recipient_email': recipient_email,
+                'contact_person': contact_person,
+            }
 
-        all_company_data.append({
-            "saving_file_time": timestamp,
-            "company": company_name,  # Correct key name
-            "website": website,
-            "main_business": main_business,
-            "cooperation_points": cooperation_points,
-            "letter_content": letter_content,
-            "recipient_email": recipient_email,
-            "contact_person": contact_person,
-        })
+            # --- CRITICAL: Call save_data_to_excel with the *new* path ---
+            save_data_to_excel(data_to_save, str(PROCESSED_EXCEL_FILE_PATH))  # Use the new path!
 
-    # --- Step 6: Save all data to CSV (append if exists) ---
-    df = pd.DataFrame(all_company_data)
-    if not df.empty:  # Only save if there's data
-        if os.path.exists(OUTPUT_CSV_PATH):
-            # Append without header
-            df.to_csv(OUTPUT_CSV_PATH, mode='a', header=False, index=False)
         else:
-            # Create with header
-             df.to_csv(OUTPUT_CSV_PATH, index=False)
-        logging.info(f"Company data saved to {OUTPUT_CSV_PATH}")
-    else:
-        logging.info("No data to save.")
+            logging.error(f"Failed to save draft for {recipient_email}")
 
 
 if __name__ == "__main__":

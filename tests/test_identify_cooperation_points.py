@@ -1,43 +1,21 @@
-import unittest
-from unittest.mock import patch, Mock
+import pytest
+from unittest.mock import patch
 from src.models.identify_cooperation_points import identify_cooperation_points
-from requests.exceptions import RequestException
+from src.models.deepseek_api import DeepSeekAPI
 
-class TestIdentifyCooperationPoints(unittest.TestCase):
+@patch.object(DeepSeekAPI, 'get_completion')
+def test_identify_cooperation_points_success(mock_get_completion):
+    mock_get_completion.return_value = "1. Joint Marketing\n2. Tech Integration"
+    api_key = "dummy_key"
+    skyfend_business = "Drone detection."
+    target_business = "Drone manufacturing."
+    result = identify_cooperation_points(api_key, skyfend_business, target_business)
+    assert result == "1. Joint Marketing\n2. Tech Integration"
+    mock_get_completion.assert_called_once()
 
-    @patch('src.models.identify_cooperation_points.requests.post')
-    def test_identify_cooperation_points_success(self, mock_post):
-        skyfend_business = "Skyfend specializes in cybersecurity solutions."
-        target_business = "The target company provides cloud storage services."
-        api_url = "https://api.example.com/identify_cooperation"
-        api_key = "test_api_key"
-
-        expected_response = {'cooperation_points': 'Cybersecurity enhancements for cloud storage.'}
-        mock_post.return_value = Mock(status_code=200)
-        mock_post.return_value.json.return_value = expected_response
-
-        result = identify_cooperation_points(skyfend_business, target_business, api_url, api_key)
-
-        self.assertEqual(result, expected_response['cooperation_points'])
-        mock_post.assert_called_once_with(
-            api_url,
-            json={"skyfend_business": skyfend_business, "target_business": target_business},
-            headers={'Authorization': f'Bearer {api_key}', 'Content-Type': 'application/json'}
-        )
-
-    @patch('src.models.identify_cooperation_points.requests.post')
-    def test_identify_cooperation_points_failure(self, mock_post):
-        skyfend_business = "Skyfend specializes in cybersecurity solutions."
-        target_business = "The target company provides cloud storage services."
-        api_url = "https://api.example.com/identify_cooperation"
-        api_key = "test_api_key"
-
-        mock_post.side_effect = RequestException("API request failed")
-
-        result = identify_cooperation_points(skyfend_business, target_business, api_url, api_key)
-
-        self.assertEqual(result, 'No cooperation points identified')
-        mock_post.assert_called_once()
-
-if __name__ == '__main__':
-    unittest.main()
+@patch.object(DeepSeekAPI, 'get_completion', return_value=None)
+def test_identify_cooperation_points_failure(mock_get_completion):
+    api_key = "dummy_key"
+    result = identify_cooperation_points(api_key, "skyfend", "target")
+    assert result == "No cooperation points identified"
+    mock_get_completion.assert_called_once()

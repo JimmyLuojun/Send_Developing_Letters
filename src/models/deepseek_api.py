@@ -1,8 +1,9 @@
-#/Users/junluo/Documents/Send_Developing_Letters/src/models/deepseek_api.py
 import os
 from openai import OpenAI
 from typing import Optional, List, Dict, Any
 import time
+import requests  # Import requests
+import json
 
 class DeepSeekAPI:
     """
@@ -42,8 +43,15 @@ class DeepSeekAPI:
             else:
                 return None
 
-        except Exception as e:
-            print(f"Error during DeepSeek API call: {e}")
+        # Catch more specific exceptions first
+        except requests.exceptions.RequestException as e:
+            print(f"Request to DeepSeek API failed: {e}")
+            return None
+        except (KeyError, IndexError, json.JSONDecodeError, TypeError) as e:
+            print(f"Error processing DeepSeek API response: {e}")
+            return None
+        except Exception as e: # Catch other exception
+            print(f"Other error: {e}")
             return None
         finally:
             time.sleep(1)

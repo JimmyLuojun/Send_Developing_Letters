@@ -1,26 +1,39 @@
-import unittest
-import os
+import pytest
+from docx import Document
 from src.data.skyfend_business import read_skyfend_business
+from unittest.mock import patch, mock_open
 
-class TestSkyfendBusiness(unittest.TestCase):
+def test_read_skyfend_business_success(tmp_path):
+    # Create a temporary .docx file for testing
+    content = "Skyfend's main business is drone detection."
+    doc = Document()
+    doc.add_paragraph(content)
+    file_path = tmp_path / "test_skyfend.docx"
+    doc.save(file_path)
 
-    def test_read_skyfend_business(self):
-        # Path to the sample Word document
-        sample_docx = os.path.join(
-            os.path.dirname(__file__), 
-            '../data/raw/test_main Business of Skyfend.docx'
-        )
-        
-        # Read the business description from the document
-        business_description = read_skyfend_business(sample_docx)
-        
-        # Print the business description for verification
-        print("Business Description:", business_description)
-        
-        # Assertions to verify the output
-        self.assertIsInstance(business_description, str)
-        self.assertGreater(len(business_description), 0)
-        self.assertIn("Skyfend", business_description)  # Example check for expected content
+    # Call the function and check the result
+    result = read_skyfend_business(str(file_path))
+    assert result == content
 
-if __name__ == '__main__':
-    unittest.main()
+def test_read_skyfend_business_file_not_found():
+    # Test with a non-existent file
+    result = read_skyfend_business("nonexistent_file.docx")
+    assert result == ""  # Expecting an empty string for file not found
+
+def test_read_skyfend_business_empty_file(tmp_path):
+    # Test file with no text content
+    doc = Document()
+    file_path = tmp_path / 'empty.docx'
+    doc.save(file_path)
+    result = read_skyfend_business(str(file_path))
+    assert result == ""
+
+def test_read_skyfend_business_multiple_paragraphs(tmp_path):
+    # Create a temp docx file with multiple paragraphs
+    doc = Document()
+    doc.add_paragraph("Paragraph 1")
+    doc.add_paragraph("Paragraph 2")
+    file_path = tmp_path / 'multi.docx'
+    doc.save(file_path)
+    result = read_skyfend_business(str(file_path))
+    assert result == "Paragraph 1\nParagraph 2"
