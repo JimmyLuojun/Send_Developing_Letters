@@ -70,18 +70,12 @@ def create_message(sender, to, subject, message_text):
     return {'raw': raw_message}
 
 
-
-def save_email_to_drafts(sender, recipient, subject, body): # sender parameter
-    """Saves an email as a draft in Gmail.
-
-    Args:
-        sender: Email address of the sender.  Now correctly used!
-        recipient: Email address of the recipient.
-        subject: Subject of the email.
-        body: Body of the email.
-
-    Returns:
-        The ID of the created draft, or None if an error occurred.
+def save_email_to_drafts(*, sender=None, recipient=None, subject=None, body=None, mime_message=None):
+    """
+    Saves an email as a draft in Gmail. Supports both plain text/HTML emails and full MIME messages.
+    
+    If mime_message is provided, it will be used directly.
+    Otherwise, sender, recipient, subject, and body will be used to create the email.
     """
     creds = get_credentials()
     if not creds:
@@ -91,11 +85,17 @@ def save_email_to_drafts(sender, recipient, subject, body): # sender parameter
         # Create Gmail service
         service = build('gmail', 'v1', credentials=creds)
 
-        # Create the email message
-        message = create_message(sender, recipient, subject, body) # Use sender
+        # Determine which message to send based on the inputs.
+        if mime_message:
+            # Use the provided MIME message directly.
+            raw_message = base64.urlsafe_b64encode(mime_message.as_bytes()).decode()
+            message = {'raw': raw_message}
+        else:
+            # Use the original function to create a message.
+            message = create_message(sender, recipient, subject, body)
 
         # Save the message as a draft
-        draft = service.users().drafts().create(userId="me", body={"message": message}).execute() # userId="me"
+        draft = service.users().drafts().create(userId="me", body={"message": message}).execute()
         logging.info(f'Draft id: {draft["id"]}, Draft message: {draft["message"]["id"]}')
         return draft['id']
 

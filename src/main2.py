@@ -1,4 +1,4 @@
-# src/main_v2.py
+# src/main2.py
 import os
 import logging
 import pandas as pd
