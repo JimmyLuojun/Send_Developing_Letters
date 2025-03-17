@@ -74,28 +74,40 @@ def save_email_to_drafts(*, sender=None, recipient=None, subject=None, body=None
     """
     Saves an email as a draft in Gmail. Supports both plain text/HTML emails and full MIME messages.
     
-    If mime_message is provided, it will be used directly.
-    Otherwise, sender, recipient, subject, and body will be used to create the email.
+    Args:
+        sender: Optional; Email address of the sender. Required if mime_message is None.
+        recipient: Optional; Email address of the recipient. Required if mime_message is None.
+        subject: Optional; Subject of the email. Required if mime_message is None.
+        body: Optional; Body of the email. Required if mime_message is None.
+        mime_message: Optional; The complete MIME message object (including attachments).
+                     If provided, other parameters are ignored.
+
+    Returns:
+        The ID of the created draft, or None if an error occurred.
     """
     creds = get_credentials()
     if not creds:
         logging.error("Failed to retrieve valid credentials.")
         return None
+
     try:
-        # Create Gmail service
         service = build('gmail', 'v1', credentials=creds)
 
-        # Determine which message to send based on the inputs.
+        # Determine which message to send based on the inputs
         if mime_message:
-            # Use the provided MIME message directly.
-            raw_message = base64.urlsafe_b64encode(mime_message.as_bytes()).decode()
-            message = {'raw': raw_message}
+            # Use the provided MIME message directly
+            encoded_message = base64.urlsafe_b64encode(mime_message.as_bytes()).decode()
+            message_dict = {'message': {'raw': encoded_message}}
         else:
-            # Use the original function to create a message.
-            message = create_message(sender, recipient, subject, body)
+            if not all([sender, recipient, subject]):
+                logging.error("Missing required parameters for simple email creation")
+                return None
+            # Create a simple email message using the function create_message
+            email_msg = create_message(sender, recipient, subject, body or '')
+            message_dict = {'message': email_msg}
 
         # Save the message as a draft
-        draft = service.users().drafts().create(userId="me", body={"message": message}).execute()
+        draft = service.users().drafts().create(userId="me", body=message_dict).execute()
         logging.info(f'Draft id: {draft["id"]}, Draft message: {draft["message"]["id"]}')
         return draft['id']
 
