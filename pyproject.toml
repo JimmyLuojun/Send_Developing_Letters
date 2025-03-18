@@ -1,0 +1,17 @@
+[project]
+name = "send-developing-letters"
+version = "0.1.0"
+description = "A Python project for generating and sending development letters."
+authors = [
+    {name = "Jimmy", email = "15828061015@163.com"}
+]
+license = {text = "Apache-2.0"}
+readme = "README.md"
+requires-python = "^3.8"  #  <--  CHANGED: Use a wider, compatible range
+dependencies = [
+]
+packages = [{ include = "send_developing_letters", from = "src" }] # <-- ADDED: Tell Poetry about your src layout
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"

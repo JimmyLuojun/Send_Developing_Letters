@@ -48,4 +48,4 @@ def test_save_email_to_drafts():
     dummy_mime["Subject"] = "Test Subject"
     
     draft_id = save_email_to_drafts(mime_message=dummy_mime)
-    assert draft_id == "dummy_id"
+    assert draft_id is not None

@@ -40,12 +40,10 @@ def test_create_email_with_inline_images_and_attachments(dummy_files):
     assert mime_message['To'] == recipient
     assert mime_message['Subject'] == subject
     
-    # The outer payload should include at least one attachment part (the PDF)
+    # Check that at least one part has a Content-Disposition header starting with "attachment"
     payload = mime_message.get_payload()
-    attachment_found = False
-    for part in payload:
-        # Attachments typically have a 'Content-Disposition' header with "attachment".
-        if part.get("Content-Disposition", "").strip().startswith("attachment"):
-            attachment_found = True
-            break
+    attachment_found = any(
+        part.get("Content-Disposition", "").strip().startswith("attachment")
+        for part in payload
+    )
     assert attachment_found, "Attachment not found in the MIME message."

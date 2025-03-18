@@ -110,7 +110,7 @@ def main():
         email_body = letter_content
 
         # --- Save Email Draft and Data ---
-        draft_id = save_email_to_drafts(GMAIL_ACCOUNT, recipient_email, email_subject, email_body) # Use sender
+        draft_id = save_email_to_drafts(sender_email=GMAIL_ACCOUNT, recipient_email=recipient_email, subject=email_subject, body=email_body) 
         if draft_id:
             logging.info(f"Email draft saved for {recipient_email}")
 
