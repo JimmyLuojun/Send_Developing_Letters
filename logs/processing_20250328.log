@@ -1,0 +1,510 @@
+2025-03-28 08:47:14,567 - INFO - Email to testing1@gmail.com at google already processed. Skipping.
+2025-03-28 08:47:14,568 - INFO - Email to testing22@gmail.com at google already processed. Skipping.
+2025-03-28 08:47:14,568 - INFO - Email to alexander.wulf@droniq.de at Droniq GmbH already processed. Skipping.
+2025-03-28 08:47:14,568 - INFO - Email to jack.kleinig@droniq.de at Droniq GmbH already processed. Skipping.
+2025-03-28 08:47:14,568 - INFO - Email to olivier@dronevolt.com at Drone Volt already processed. Skipping.
+2025-03-28 08:47:14,569 - INFO - Email to stefano.valentini@dronevolt.com at Drone Volt already processed. Skipping.
+2025-03-28 08:47:14,569 - INFO - Entering generate_developing_letter function
+2025-03-28 08:47:14,612 - INFO - Prompt for DeepSeek API: 
+Rephrase this letter with a fresh tone.
+
+Generate a formal business letter proposing a partnership.  The letter should be concise (160-230 words).
+
+**Specific Instructions and Context:**
+
+*   **Sender:** Jimmy, Overseas Sales Manager at Skyfend (a subsidiary of Autel).  # Clearly defines the sender.
+*   **Recipient:** Dear Jimmy, (at Drone Volt). # Dynamically includes the recipient and company.
+*   **Company Background:** We've been following Drone Volt's development. # Sets a positive tone.
+*   **Skyfend's Global Presence:** Skyfend has exported devices to partners in Africa, Europe, and America. # Establishes credibility.
+*   **Focus:** Emphasize potential cooperation opportunities. # Main purpose of the letter.
+*   **FPV Drone Threats:** Emphasize Skyfend's devices for FPV drone threats and commercial drones (DJI, Autel, Parrot, etc.). # Specific product focus.
+*   **Letter Structure:** Each paragraph should consist of 2-3 sentences. # Controls letter length and readability.
+*   **Call to Action:** Propose a video meeting or call. # Clear next step.
+*   **Attachment:** Mention that a product brochure is attached. # Adds supporting material.
+*   **Subject:** Proposal for Strategic Partnership Between Skyfend and Drone Volt  # Informative subject line.
+
+**Cooperation Points:**
+
+**Cooperation Points Between Skyfend (Company A) and DRONE VOLT (Company B):**
+
+1. **Secure Drone Ecosystem Integration**  
+   - **Synergy:** Integrate Skyfend’s **C-UAS recognition protocols** (e.g., Skyfend Defender/Tracer) into DRONE VOLT’s drones to designate them as “authorized” in restricted zones.  
+   - **Mutual Benefit:** DRONE VOLT’s drones avoid disruption by Skyfend’s systems during critical missions (e.g., infrastructure inspections), while Skyfend enhances its value proposition by supporting compliant, secure drone operations.
+
+2. **AI-Driven Threat Detection & Response**  
+   - **Synergy:** Leverage DRONE VOLT’s onboard AI to enhance Skyfend’s **Guider C2 software**, enabling real-time analysis of drone behavior (e.g., identifying hostile patterns) and automating countermeasures via Skyfend Hunter/Blader.  
+   - **Mutual Benefit:** Skyfend gains smarter threat classification, reducing false positives, while DRONE VOLT expands its AI applications into defense markets.
+
+3. **Mobile Counter-Drone Surveillance Networks**  
+   - **Synergy:** Equip DRONE VOLT drones with Skyfend’s **portable detectors (Tracer)** or **jammers (Blader)** to create agile, airborne C-UAS units for monitoring large events or borders.  
+   - **Mutual Benefit:** Skyfend extends its reach with mobile deployment options, while DRONE VOLT diversifies its drone use cases into security roles.
+
+4. **Regulatory Compliance Solutions**  
+   - **Synergy:** Co-develop a **compliance module** combining Skyfend’s GNSS Spoofer with DRONE VOLT’s geofencing AI to enforce no-fly zones autonomously.  
+   - **Mutual Benefit:** DRONE VOLT’s clients meet strict airspace regulations, and Skyfend positions its spoofing tech as a proactive compliance tool for civilian operators.
+
+5. **Joint Training & Certification Programs**  
+   - **Synergy:** Offer bundled training for security teams on operating DRONE VOLT’s surveillance drones alongside Skyfend’s C-UAS systems (e.g., Guider software workflows).  
+   - **Mutual Benefit:** Strengthens client trust in integrated security solutions and creates recurring revenue through certification services.  
+
+**Outcome:** These points bridge Skyfend’s defense-focused C-UAS expertise with DRONE VOLT’s civilian AI-drone capabilities, fostering cross-industry innovation and expanding market access for both.  # Inserts the identified cooperation points.
+
+**Output Format:**
+
+Return ONLY the body of the letter, formatted using basic HTML. Do *not* include any sender address, date, or recipient address *outside* the letter body. The letter *should* start *directly* with the salutation.
+
+Use the following HTML tags for formatting:
+
+*   `<p>` tags for paragraphs.  Use separate `<p>` tags for each paragraph.
+*   `<br>` for explicit line breaks where needed (e.g., within the address, after the salutation).
+*   `<strong>` or `<b>` tags for bold text (e.g., for key benefits or company names).
+*    If listing cooperation points, use a `<ul>` (unordered list) and `<li>` (list item) tags for each point.
+
+2025-03-28 08:47:16,175 - INFO - HTTP Request: POST https://api.deepseek.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-28 08:47:32,796 - INFO - Raw response from Deepseek: ChatCompletion(id='556ba3e3-75e5-4173-8e89-e27f08b57709', choices=[Choice(finish_reason='stop', index=0, logprobs=None, message=ChatCompletionMessage(content='```html\n<p>Dear Jimmy,</p>\n\n<p>We at <strong>Skyfend</strong>, a subsidiary of Autel, have been closely following <strong>Drone Volt</strong>\'s impressive advancements in drone technology. Your innovative solutions align well with our mission to enhance airspace security, and we believe a strategic partnership could unlock significant opportunities for both companies.</p>\n\n<p>With a proven track record of exporting our counter-drone devices to partners across Africa, Europe, and the Americas, Skyfend specializes in mitigating threats from FPV and commercial drones (e.g., DJI, Autel, Parrot). Our expertise could complement Drone Volt’s capabilities in creating a safer, more secure drone ecosystem.</p>\n\n<p>We propose exploring the following collaboration opportunities:</p>\n\n<ul>\n  <li><strong>Secure Drone Integration:</strong> Designate Drone Volt drones as "authorized" in restricted zones using Skyfend’s C-UAS protocols, ensuring uninterrupted operations during critical missions.</li>\n  <li><strong>AI-Driven Threat Detection:</strong> Enhance Skyfend’s Guider C2 software with Drone Volt’s AI for real-time behavior analysis and automated countermeasures.</li>\n  <li><strong>Mobile Surveillance Networks:</strong> Equip Drone Volt drones with Skyfend’s portable detectors or jammers for agile, airborne C-UAS deployments.</li>\n</ul>\n\n<p>We’d welcome the chance to discuss this further in a video meeting or call at your convenience. A product brochure is attached for your reference.</p>\n\n<p>Looking forward to your thoughts.</p>\n\n<p>Best regards,<br>\nJimmy<br>\nOverseas Sales Manager<br>\n<strong>Skyfend</strong></p>\n```', refusal=None, role='assistant', annotations=None, audio=None, function_call=None, tool_calls=None))], created=1743122835, model='deepseek-chat', object='chat.completion', service_tier=None, system_fingerprint='fp_3d5141a69a_prod0225', usage=CompletionUsage(completion_tokens=374, prompt_tokens=1041, total_tokens=1415, completion_tokens_details=None, prompt_tokens_details=PromptTokensDetails(audio_tokens=None, cached_tokens=1024), prompt_cache_hit_tokens=1024, prompt_cache_miss_tokens=17))
+2025-03-28 08:47:34,078 - INFO - file_cache is only supported with oauth2client<4.0.0
+2025-03-28 08:47:48,705 - INFO - Draft id: r-1825082587197142783, Draft message: 195da3828241fdae
+2025-03-28 08:47:48,708 - INFO - Draft saved successfully, ID: r-1825082587197142783
+2025-03-28 08:47:48,736 - INFO - Processed and saved data for Drone Volt (jimm123@dronevolt.com)
+2025-03-28 08:47:53,074 - INFO - HTTP Request: POST https://api.deepseek.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-28 08:48:00,191 - INFO - HTTP Request: POST https://api.deepseek.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-28 08:48:51,287 - INFO - Entering generate_developing_letter function
+2025-03-28 08:48:51,333 - INFO - Prompt for DeepSeek API: 
+Generate a formal business development letter.
+
+Generate a formal business letter proposing a partnership.  The letter should be concise (160-230 words).
+
+**Specific Instructions and Context:**
+
+*   **Sender:** Jimmy, Overseas Sales Manager at Skyfend (a subsidiary of Autel).  # Clearly defines the sender.
+*   **Recipient:** Dear Anketa Bezvisty, (at Center for Service of National Police Units of Ukraine). # Dynamically includes the recipient and company.
+*   **Company Background:** We've been following Center for Service of National Police Units of Ukraine's development. # Sets a positive tone.
+*   **Skyfend's Global Presence:** Skyfend has exported devices to partners in Africa, Europe, and America. # Establishes credibility.
+*   **Focus:** Emphasize potential cooperation opportunities. # Main purpose of the letter.
+*   **FPV Drone Threats:** Emphasize Skyfend's devices for FPV drone threats and commercial drones (DJI, Autel, Parrot, etc.). # Specific product focus.
+*   **Letter Structure:** Each paragraph should consist of 2-3 sentences. # Controls letter length and readability.
+*   **Call to Action:** Propose a video meeting or call. # Clear next step.
+*   **Attachment:** Mention that a product brochure is attached. # Adds supporting material.
+*   **Subject:** Proposal for Strategic Partnership Between Skyfend and Center for Service of National Police Units of Ukraine  # Informative subject line.
+
+**Cooperation Points:**
+
+**Cooperation Points Between Skyfend (Company A) and the National Police of Ukraine (Company B):**
+
+1. **Drone Threat Mitigation for Critical Infrastructure & Public Events**  
+   - **Synergy:** Skyfend’s **Hunter**, **Blader**, and **Defender** systems could be deployed to secure high-profile public events (e.g., rallies, diplomatic visits) and critical infrastructure (e.g., power plants, communication hubs) in Ukraine.  
+   - **Mutual Benefit:** The Police gain advanced tools to prevent drone-based attacks or surveillance, while Skyfend validates its technology in high-stakes, real-world scenarios, enhancing its global credibility.  
+
+2. **Border Defense Integration**  
+   - **Synergy:** Skyfend’s **Tracer** (radio detector) and **Spoofer** (GNSS disruption) could integrate with Ukraine’s border patrol operations to detect and neutralize drones used for smuggling, reconnaissance, or attacks.  
+   - **Mutual Benefit:** Enhances border security for Ukraine while providing Skyfend with data to refine systems for complex, large-area deployments (e.g., adapting to terrain challenges).  
+
+3. **Customized Command & Control Software**  
+   - **Synergy:** Tailor Skyfend’s **Guider** software to integrate with Ukraine’s existing law enforcement command centers, enabling centralized management of drone threats alongside other security operations.  
+   - **Mutual Benefit:** Streamlines decision-making for the Police and allows Skyfend to develop adaptable C2 solutions for other government clients.  
+
+4. **Joint Training & Rapid Response Protocols**  
+   - **Synergy:** Skyfend could provide specialized training for Ukrainian police units on counter-drone tactics, including hands-on use of portable systems like **Blader** and **Tracer**.  
+   - **Mutual Benefit:** Builds operational expertise for Ukraine’s forces and creates a model for Skyfend’s future training programs in conflict zones.  
+
+5. **Threat Intelligence Sharing & R&D Collaboration**  
+   - **Synergy:** Share data on emerging drone tactics (e.g., modified commercial drones) encountered in Ukraine to improve Skyfend’s detection algorithms and countermeasure responsiveness.  
+   - **Mutual Benefit:** The Police receive prioritized updates to counter evolving threats, while Skyfend gains insights to stay ahead in the C-UAS market.  
+
+**Outcome:** These points leverage Skyfend’s technical strengths and the National Police of Ukraine’s operational needs, fostering a partnership that enhances security capabilities while driving product innovation.  # Inserts the identified cooperation points.
+
+**Output Format:**
+
+Return ONLY the body of the letter, formatted using basic HTML. Do *not* include any sender address, date, or recipient address *outside* the letter body. The letter *should* start *directly* with the salutation.
+
+Use the following HTML tags for formatting:
+
+*   `<p>` tags for paragraphs.  Use separate `<p>` tags for each paragraph.
+*   `<br>` for explicit line breaks where needed (e.g., within the address, after the salutation).
+*   `<strong>` or `<b>` tags for bold text (e.g., for key benefits or company names).
+*    If listing cooperation points, use a `<ul>` (unordered list) and `<li>` (list item) tags for each point.
+
+2025-03-28 08:48:52,427 - INFO - HTTP Request: POST https://api.deepseek.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-28 08:49:10,259 - INFO - Raw response from Deepseek: ChatCompletion(id='61ab2173-3407-4c69-a7c9-42b716e33e96', choices=[Choice(finish_reason='stop', index=0, logprobs=None, message=ChatCompletionMessage(content='<p>Dear Anketa Bezvisty,</p>\n\n<p>We at <strong>Skyfend</strong>, a subsidiary of Autel, have been following the impactful work of the <strong>Center for Service of National Police Units of Ukraine</strong> with great interest. Given your critical role in national security, we believe there is significant potential for collaboration between our organizations.</p>\n\n<p>Skyfend specializes in counter-drone solutions, with a proven track record of exporting our devices to partners across Africa, Europe, and America. Our systems, such as <strong>Hunter</strong>, <strong>Blader</strong>, and <strong>Defender</strong>, are designed to mitigate threats from FPV drones and commercial drones (e.g., DJI, Autel, Parrot), making them ideal for your operational needs.</p>\n\n<p>We propose exploring the following cooperation opportunities:</p>\n<ul>\n  <li><strong>Drone Threat Mitigation:</strong> Securing critical infrastructure and public events with our advanced systems.</li>\n  <li><strong>Border Defense Integration:</strong> Enhancing border patrol operations with our detection and neutralization tools.</li>\n  <li><strong>Customized Software:</strong> Tailoring our <strong>Guider</strong> software for seamless integration with your command centers.</li>\n  <li><strong>Joint Training:</strong> Providing specialized training for your units on counter-drone tactics.</li>\n  <li><strong>Threat Intelligence Sharing:</strong> Collaborating on R&D to stay ahead of evolving threats.</li>\n</ul>\n\n<p>To discuss this further, we would be delighted to arrange a video meeting or call at your convenience. A product brochure is attached for your reference.</p>\n\n<p>We look forward to the possibility of working together to enhance Ukraine’s security capabilities.</p>\n\n<p>Best regards,<br>\nJimmy<br>\nOverseas Sales Manager<br>\n<strong>Skyfend</strong></p>', refusal=None, role='assistant', annotations=None, audio=None, function_call=None, tool_calls=None))], created=1743122932, model='deepseek-chat', object='chat.completion', service_tier=None, system_fingerprint='fp_3d5141a69a_prod0225', usage=CompletionUsage(completion_tokens=417, prompt_tokens=1050, total_tokens=1467, completion_tokens_details=None, prompt_tokens_details=PromptTokensDetails(audio_tokens=None, cached_tokens=320), prompt_cache_hit_tokens=320, prompt_cache_miss_tokens=730))
+2025-03-28 08:49:11,423 - INFO - file_cache is only supported with oauth2client<4.0.0
+2025-03-28 08:49:29,707 - INFO - Draft id: r3716689198845980606, Draft message: 195da39b393f9fef
+2025-03-28 08:49:29,709 - INFO - Draft saved successfully, ID: r3716689198845980606
+2025-03-28 08:49:29,747 - INFO - Processed and saved data for Center for Service of National Police Units of Ukraine (anketa.bezvisty@mvs.gov.ua)
+2025-03-28 08:49:29,747 - WARNING - Skipping row with invalid company name: 'nan'
+2025-03-28 08:49:29,747 - WARNING - Skipping row with invalid company name: 'nan'
+2025-03-28 08:49:29,747 - WARNING - Skipping row with invalid company name: 'nan'
+2025-03-28 08:49:29,747 - WARNING - Skipping row with invalid company name: 'nan'
+2025-03-28 08:49:29,747 - WARNING - Skipping row with invalid company name: 'nan'
+2025-03-28 08:49:29,747 - WARNING - Skipping row with invalid company name: 'nan'
+2025-03-28 08:49:29,748 - WARNING - Skipping row with invalid company name: 'nan'
+2025-03-28 08:49:29,748 - WARNING - Skipping row with invalid company name: 'nan'
+2025-03-28 08:49:29,748 - WARNING - Skipping row with invalid company name: 'nan'
+2025-03-28 08:49:29,748 - WARNING - Skipping row with invalid company name: 'nan'
+2025-03-28 08:49:29,748 - WARNING - Skipping row with invalid company name: 'nan'
+2025-03-28 08:49:29,748 - WARNING - Skipping row with invalid company name: 'nan'
+2025-03-28 08:49:29,748 - WARNING - Skipping row with invalid company name: 'nan'
+2025-03-28 08:49:29,748 - WARNING - Skipping row with invalid company name: 'nan'
+2025-03-28 08:49:29,748 - WARNING - Skipping row with invalid company name: 'nan'
+2025-03-28 08:49:29,748 - WARNING - Skipping row with invalid company name: 'nan'
+2025-03-28 08:49:29,748 - WARNING - Skipping row with invalid company name: 'nan'
+2025-03-28 08:49:29,748 - WARNING - Skipping row with invalid company name: 'nan'
+2025-03-28 08:49:29,748 - WARNING - Skipping row with invalid company name: 'nan'
+2025-03-28 08:49:29,748 - WARNING - Skipping row with invalid company name: 'nan'
+2025-03-28 08:49:29,748 - WARNING - Skipping row with invalid company name: 'nan'
+2025-03-28 08:49:29,748 - WARNING - Skipping row with invalid company name: 'nan'
+2025-03-28 08:49:29,748 - WARNING - Skipping row with invalid company name: 'nan'
+2025-03-28 08:49:29,748 - WARNING - Skipping row with invalid company name: 'nan'
+2025-03-28 08:49:29,748 - WARNING - Skipping row with invalid company name: 'nan'
+2025-03-28 08:49:29,748 - WARNING - Skipping row with invalid company name: 'nan'
+2025-03-28 08:49:29,749 - WARNING - Skipping row with invalid company name: 'nan'
+2025-03-28 08:49:29,749 - WARNING - Skipping row with invalid company name: 'nan'
+2025-03-28 08:49:29,749 - WARNING - Skipping row with invalid company name: 'nan'
+2025-03-28 08:49:29,749 - WARNING - Skipping row with invalid company name: 'nan'
+2025-03-28 08:49:29,749 - WARNING - Skipping row with invalid company name: 'nan'
+2025-03-28 08:49:29,749 - WARNING - Skipping row with invalid company name: 'nan'
+2025-03-28 08:49:29,749 - WARNING - Skipping row with invalid company name: 'nan'
+2025-03-28 08:49:29,749 - WARNING - Skipping row with invalid company name: 'nan'
+2025-03-28 08:49:29,749 - WARNING - Skipping row with invalid company name: 'nan'
+2025-03-28 08:49:29,749 - WARNING - Skipping row with invalid company name: 'nan'
+2025-03-28 08:49:29,749 - WARNING - Skipping row with invalid company name: 'nan'
+2025-03-28 08:49:29,749 - WARNING - Skipping row with invalid company name: 'nan'
+2025-03-28 08:49:29,749 - WARNING - Skipping row with invalid company name: 'nan'
+2025-03-28 08:49:29,749 - WARNING - Skipping row with invalid company name: 'nan'
+2025-03-28 08:49:29,749 - WARNING - Skipping row with invalid company name: 'nan'
+2025-03-28 08:49:29,749 - WARNING - Skipping row with invalid company name: 'nan'
+2025-03-28 08:49:29,749 - WARNING - Skipping row with invalid company name: 'nan'
+2025-03-28 08:49:29,749 - WARNING - Skipping row with invalid company name: 'nan'
+2025-03-28 08:49:29,749 - WARNING - Skipping row with invalid company name: 'nan'
+2025-03-28 08:49:29,750 - WARNING - Skipping row with invalid company name: 'nan'
+2025-03-28 08:49:29,750 - WARNING - Skipping row with invalid company name: 'nan'
+2025-03-28 08:49:29,750 - WARNING - Skipping row with invalid company name: 'nan'
+2025-03-28 08:49:29,750 - WARNING - Skipping row with invalid company name: 'nan'
+2025-03-28 08:49:29,750 - WARNING - Skipping row with invalid company name: 'nan'
+2025-03-28 08:49:29,750 - WARNING - Skipping row with invalid company name: 'nan'
+2025-03-28 08:49:29,750 - WARNING - Skipping row with invalid company name: 'nan'
+2025-03-28 08:49:29,750 - WARNING - Skipping row with invalid company name: 'nan'
+2025-03-28 08:49:29,750 - WARNING - Skipping invalid recipient email 'Google is a technology company that specializes in internet-related services and products, including search engines, online advertising technologies, cloud computing, software, and hardware. Its primary activity is organizing the world's information and making it universally accessible and useful through its search engine and various other digital services.' for company: google
+2025-03-28 08:49:29,750 - WARNING - Skipping invalid recipient email 'Google is a technology company that specializes in internet-related services and products, including search engines, online advertising, cloud computing, software, and hardware. Its primary activity is organizing the world's information and making it universally accessible and useful through its search engine and various other digital services.' for company: google
+2025-03-28 09:41:55,576 - INFO - Skipping row for company 'google' because process flag is not 'yes'.
+2025-03-28 09:41:55,576 - INFO - Skipping row for company 'google' because process flag is not 'yes'.
+2025-03-28 09:41:55,576 - INFO - Skipping row for company 'Droniq GmbH' because process flag is not 'yes'.
+2025-03-28 09:41:55,576 - INFO - Skipping row for company 'Droniq GmbH' because process flag is not 'yes'.
+2025-03-28 09:41:55,576 - INFO - Skipping row for company 'Drone Volt' because process flag is not 'yes'.
+2025-03-28 09:41:55,576 - INFO - Skipping row for company 'Drone Volt' because process flag is not 'yes'.
+2025-03-28 09:41:55,577 - INFO - Entering generate_developing_letter function
+2025-03-28 09:41:55,617 - INFO - Prompt for DeepSeek API: 
+Rephrase this letter with a fresh tone.
+
+Generate a formal business letter proposing a partnership.  The letter should be concise (160-230 words).
+
+**Specific Instructions and Context:**
+
+*   **Sender:** Jimmy, Overseas Sales Manager at Skyfend (a subsidiary of Autel).  # Clearly defines the sender.
+*   **Recipient:** Dear Jimmy, (at Drone Volt). # Dynamically includes the recipient and company.
+*   **Company Background:** We've been following Drone Volt's development. # Sets a positive tone.
+*   **Skyfend's Global Presence:** Skyfend has exported devices to partners in Africa, Europe, and America. # Establishes credibility.
+*   **Focus:** Emphasize potential cooperation opportunities. # Main purpose of the letter.
+*   **FPV Drone Threats:** Emphasize Skyfend's devices for FPV drone threats and commercial drones (DJI, Autel, Parrot, etc.). # Specific product focus.
+*   **Letter Structure:** Each paragraph should consist of 2-3 sentences. # Controls letter length and readability.
+*   **Call to Action:** Propose a video meeting or call. # Clear next step.
+*   **Attachment:** Mention that a product brochure is attached. # Adds supporting material.
+*   **Subject:** Proposal for Strategic Partnership Between Skyfend and Drone Volt  # Informative subject line.
+
+**Cooperation Points:**
+
+**Cooperation Points Between Skyfend (Company A) and DRONE VOLT (Company B):**
+
+1. **Secure Drone Ecosystem Integration**  
+   - **Synergy:** Integrate Skyfend’s **C-UAS recognition protocols** (e.g., Skyfend Defender/Tracer) into DRONE VOLT’s drones to designate them as “authorized” in restricted zones.  
+   - **Mutual Benefit:** DRONE VOLT’s drones avoid disruption by Skyfend’s systems during critical missions (e.g., infrastructure inspections), while Skyfend enhances its value proposition by supporting compliant, secure drone operations.
+
+2. **AI-Driven Threat Detection & Response**  
+   - **Synergy:** Leverage DRONE VOLT’s onboard AI to enhance Skyfend’s **Guider C2 software**, enabling real-time analysis of drone behavior (e.g., identifying hostile patterns) and automating countermeasures via Skyfend Hunter/Blader.  
+   - **Mutual Benefit:** Skyfend gains smarter threat classification, reducing false positives, while DRONE VOLT expands its AI applications into defense markets.
+
+3. **Mobile Counter-Drone Surveillance Networks**  
+   - **Synergy:** Equip DRONE VOLT drones with Skyfend’s **portable detectors (Tracer)** or **jammers (Blader)** to create agile, airborne C-UAS units for monitoring large events or borders.  
+   - **Mutual Benefit:** Skyfend extends its reach with mobile deployment options, while DRONE VOLT diversifies its drone use cases into security roles.
+
+4. **Regulatory Compliance Solutions**  
+   - **Synergy:** Co-develop a **compliance module** combining Skyfend’s GNSS Spoofer with DRONE VOLT’s geofencing AI to enforce no-fly zones autonomously.  
+   - **Mutual Benefit:** DRONE VOLT’s clients meet strict airspace regulations, and Skyfend positions its spoofing tech as a proactive compliance tool for civilian operators.
+
+5. **Joint Training & Certification Programs**  
+   - **Synergy:** Offer bundled training for security teams on operating DRONE VOLT’s surveillance drones alongside Skyfend’s C-UAS systems (e.g., Guider software workflows).  
+   - **Mutual Benefit:** Strengthens client trust in integrated security solutions and creates recurring revenue through certification services.  
+
+**Outcome:** These points bridge Skyfend’s defense-focused C-UAS expertise with DRONE VOLT’s civilian AI-drone capabilities, fostering cross-industry innovation and expanding market access for both.  # Inserts the identified cooperation points.
+
+**Output Format:**
+
+Return ONLY the body of the letter, formatted using basic HTML. Do *not* include any sender address, date, or recipient address *outside* the letter body. The letter *should* start *directly* with the salutation.
+
+Use the following HTML tags for formatting:
+
+*   `<p>` tags for paragraphs.  Use separate `<p>` tags for each paragraph.
+*   `<br>` for explicit line breaks where needed (e.g., within the address, after the salutation).
+*   `<strong>` or `<b>` tags for bold text (e.g., for key benefits or company names).
+*    If listing cooperation points, use a `<ul>` (unordered list) and `<li>` (list item) tags for each point.
+
+2025-03-28 09:41:57,016 - INFO - HTTP Request: POST https://api.deepseek.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-28 09:42:13,306 - INFO - Raw response from Deepseek: ChatCompletion(id='b2c24907-87cc-401e-8d66-6589c8678a35', choices=[Choice(finish_reason='stop', index=0, logprobs=None, message=ChatCompletionMessage(content='```html\n<p>Dear Jimmy,</p>\n\n<p>We at <strong>Skyfend</strong>, a subsidiary of Autel, have been closely following <strong>Drone Volt</strong>\'s impressive advancements in drone technology. Given our shared focus on innovation, we believe there is significant potential for collaboration between our companies.</p>\n\n<p>Skyfend has established a strong global presence, exporting our counter-drone solutions to partners across Africa, Europe, and the Americas. Our expertise in mitigating threats from FPV and commercial drones (DJI, Autel, Parrot, etc.) aligns well with Drone Volt’s capabilities.</p>\n\n<p>We propose exploring the following cooperation opportunities:</p>\n\n<ul>\n  <li><strong>Secure Drone Ecosystem Integration:</strong> Designate Drone Volt’s drones as "authorized" in restricted zones using Skyfend’s C-UAS protocols, ensuring uninterrupted operations.</li>\n  <li><strong>AI-Driven Threat Detection:</strong> Enhance Skyfend’s Guider C2 software with Drone Volt’s AI for real-time drone behavior analysis and automated countermeasures.</li>\n  <li><strong>Mobile Counter-Drone Networks:</strong> Equip Drone Volt drones with Skyfend’s portable detectors or jammers for agile surveillance in dynamic environments.</li>\n  <li><strong>Regulatory Compliance Solutions:</strong> Co-develop a compliance module combining Skyfend’s GNSS Spoofer with Drone Volt’s geofencing AI.</li>\n  <li><strong>Joint Training Programs:</strong> Offer bundled training for security teams on integrated system operations.</li>\n</ul>\n\n<p>We’d love to discuss this further in a video meeting or call at your convenience. A product brochure is attached for your reference.</p>\n\n<p>Looking forward to your thoughts.</p>\n\n<p>Best regards,<br>\nJimmy<br>\nOverseas Sales Manager<br>\nSkyfend</p>\n```', refusal=None, role='assistant', annotations=None, audio=None, function_call=None, tool_calls=None))], created=1743126116, model='deepseek-chat', object='chat.completion', service_tier=None, system_fingerprint='fp_3d5141a69a_prod0225', usage=CompletionUsage(completion_tokens=417, prompt_tokens=1041, total_tokens=1458, completion_tokens_details=None, prompt_tokens_details=PromptTokensDetails(audio_tokens=None, cached_tokens=1024), prompt_cache_hit_tokens=1024, prompt_cache_miss_tokens=17))
+2025-03-28 09:42:14,423 - INFO - file_cache is only supported with oauth2client<4.0.0
+2025-03-28 09:42:28,767 - INFO - Draft id: r-2823785407435869153, Draft message: 195da6a35e0d3ed1
+2025-03-28 09:42:28,771 - INFO - Draft saved successfully, ID: r-2823785407435869153
+2025-03-28 09:42:28,799 - INFO - Processed and saved data for Drone Volt (jimm123@dronevolt.com)
+2025-03-28 09:42:28,799 - INFO - Skipping row for company 'Center for Service of National Police Units of Ukraine' because process flag is not 'yes'.
+2025-03-28 09:56:14,568 - INFO - Skipping row for company 'google' because process flag is not 'yes'.
+2025-03-28 09:56:14,569 - INFO - Skipping row for company 'google' because process flag is not 'yes'.
+2025-03-28 09:56:14,569 - INFO - Skipping row for company 'Droniq GmbH' because process flag is not 'yes'.
+2025-03-28 09:56:14,569 - INFO - Skipping row for company 'Droniq GmbH' because process flag is not 'yes'.
+2025-03-28 09:56:14,569 - INFO - Skipping row for company 'Drone Volt' because process flag is not 'yes'.
+2025-03-28 09:56:14,569 - INFO - Skipping row for company 'Drone Volt' because process flag is not 'yes'.
+2025-03-28 09:56:14,570 - INFO - Entering generate_developing_letter function
+2025-03-28 09:56:14,611 - INFO - Prompt for DeepSeek API: 
+Rephrase this letter with a fresh tone.
+
+Generate a formal business letter proposing a partnership.  The letter should be concise (160-230 words).
+
+**Specific Instructions and Context:**
+
+*   **Sender:** Jimmy, Overseas Sales Manager at Skyfend (a subsidiary of Autel).  # Clearly defines the sender.
+*   **Recipient:** Dear Jimmy, (at Drone Volt). # Dynamically includes the recipient and company.
+*   **Company Background:** We've been following Drone Volt's development. # Sets a positive tone.
+*   **Skyfend's Global Presence:** Skyfend has exported devices to partners in Africa, Europe, and America. # Establishes credibility.
+*   **Focus:** Emphasize potential cooperation opportunities. # Main purpose of the letter.
+*   **FPV Drone Threats:** Emphasize Skyfend's devices for FPV drone threats and commercial drones (DJI, Autel, Parrot, etc.). # Specific product focus.
+*   **Letter Structure:** Each paragraph should consist of 2-3 sentences. # Controls letter length and readability.
+*   **Call to Action:** Propose a video meeting or call. # Clear next step.
+*   **Attachment:** Mention that a product brochure is attached. # Adds supporting material.
+*   **Subject:** Proposal for Strategic Partnership Between Skyfend and Drone Volt  # Informative subject line.
+
+**Cooperation Points:**
+
+**Cooperation Points Between Skyfend (Company A) and DRONE VOLT (Company B):**
+
+1. **Secure Drone Ecosystem Integration**  
+   - **Synergy:** Integrate Skyfend’s **C-UAS recognition protocols** (e.g., Skyfend Defender/Tracer) into DRONE VOLT’s drones to designate them as “authorized” in restricted zones.  
+   - **Mutual Benefit:** DRONE VOLT’s drones avoid disruption by Skyfend’s systems during critical missions (e.g., infrastructure inspections), while Skyfend enhances its value proposition by supporting compliant, secure drone operations.
+
+2. **AI-Driven Threat Detection & Response**  
+   - **Synergy:** Leverage DRONE VOLT’s onboard AI to enhance Skyfend’s **Guider C2 software**, enabling real-time analysis of drone behavior (e.g., identifying hostile patterns) and automating countermeasures via Skyfend Hunter/Blader.  
+   - **Mutual Benefit:** Skyfend gains smarter threat classification, reducing false positives, while DRONE VOLT expands its AI applications into defense markets.
+
+3. **Mobile Counter-Drone Surveillance Networks**  
+   - **Synergy:** Equip DRONE VOLT drones with Skyfend’s **portable detectors (Tracer)** or **jammers (Blader)** to create agile, airborne C-UAS units for monitoring large events or borders.  
+   - **Mutual Benefit:** Skyfend extends its reach with mobile deployment options, while DRONE VOLT diversifies its drone use cases into security roles.
+
+4. **Regulatory Compliance Solutions**  
+   - **Synergy:** Co-develop a **compliance module** combining Skyfend’s GNSS Spoofer with DRONE VOLT’s geofencing AI to enforce no-fly zones autonomously.  
+   - **Mutual Benefit:** DRONE VOLT’s clients meet strict airspace regulations, and Skyfend positions its spoofing tech as a proactive compliance tool for civilian operators.
+
+5. **Joint Training & Certification Programs**  
+   - **Synergy:** Offer bundled training for security teams on operating DRONE VOLT’s surveillance drones alongside Skyfend’s C-UAS systems (e.g., Guider software workflows).  
+   - **Mutual Benefit:** Strengthens client trust in integrated security solutions and creates recurring revenue through certification services.  
+
+**Outcome:** These points bridge Skyfend’s defense-focused C-UAS expertise with DRONE VOLT’s civilian AI-drone capabilities, fostering cross-industry innovation and expanding market access for both.  # Inserts the identified cooperation points.
+
+**Output Format:**
+
+Return ONLY the body of the letter, formatted using basic HTML. Do *not* include any sender address, date, or recipient address *outside* the letter body. The letter *should* start *directly* with the salutation.
+
+Use the following HTML tags for formatting:
+
+*   `<p>` tags for paragraphs.  Use separate `<p>` tags for each paragraph.
+*   `<br>` for explicit line breaks where needed (e.g., within the address, after the salutation).
+*   `<strong>` or `<b>` tags for bold text (e.g., for key benefits or company names).
+*    If listing cooperation points, use a `<ul>` (unordered list) and `<li>` (list item) tags for each point.
+
+2025-03-28 09:56:15,755 - INFO - HTTP Request: POST https://api.deepseek.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-28 09:56:36,638 - INFO - Raw response from Deepseek: ChatCompletion(id='a1c01ebe-71f2-477b-8a17-8f401cb7937c', choices=[Choice(finish_reason='stop', index=0, logprobs=None, message=ChatCompletionMessage(content='```html\n<p>Dear Jimmy,</p>\n\n<p>We at <strong>Skyfend</strong>, a subsidiary of Autel, have been closely following <strong>Drone Volt</strong>\'s impressive advancements in drone technology. Your innovative approach aligns well with our mission to enhance airspace security, and we believe a strategic partnership could unlock significant opportunities for both companies.</p>\n\n<p>Skyfend has established a strong global presence, exporting our counter-drone solutions to partners across Africa, Europe, and the Americas. Our expertise in mitigating <strong>FPV drone threats</strong> and securing airspace from commercial drones (DJI, Autel, Parrot, etc.) complements Drone Volt’s capabilities, creating a natural synergy.</p>\n\n<p>We propose exploring collaboration in the following areas:</p>\n\n<ul>\n  <li><strong>Secure Drone Ecosystem Integration:</strong> Designate Drone Volt drones as "authorized" in restricted zones using Skyfend’s C-UAS protocols.</li>\n  <li><strong>AI-Driven Threat Detection:</strong> Enhance Skyfend’s Guider C2 software with Drone Volt’s AI for real-time threat analysis.</li>\n  <li><strong>Mobile Counter-Drone Networks:</strong> Equip Drone Volt drones with Skyfend’s portable detectors or jammers for agile surveillance.</li>\n  <li><strong>Regulatory Compliance Solutions:</strong> Co-develop a compliance module combining geofencing and spoofing technologies.</li>\n  <li><strong>Joint Training Programs:</strong> Offer bundled training for integrated security solutions.</li>\n</ul>\n\n<p>We’d love to discuss this further in a video meeting or call at your convenience. A detailed product brochure is attached for your reference.</p>\n\n<p>Looking forward to your thoughts.</p>\n\n<p>Best regards,<br>\nJimmy<br>\nOverseas Sales Manager<br>\nSkyfend</p>\n```', refusal=None, role='assistant', annotations=None, audio=None, function_call=None, tool_calls=None))], created=1743126975, model='deepseek-chat', object='chat.completion', service_tier=None, system_fingerprint='fp_3d5141a69a_prod0225', usage=CompletionUsage(completion_tokens=412, prompt_tokens=1041, total_tokens=1453, completion_tokens_details=None, prompt_tokens_details=PromptTokensDetails(audio_tokens=None, cached_tokens=1024), prompt_cache_hit_tokens=1024, prompt_cache_miss_tokens=17))
+2025-03-28 09:56:38,083 - INFO - file_cache is only supported with oauth2client<4.0.0
+2025-03-28 09:57:39,430 - ERROR - An unexpected error occurred: The write operation timed out
+2025-03-28 09:57:39,432 - INFO - Draft saved successfully, ID: None
+2025-03-28 09:57:39,461 - INFO - Processed and saved data for Drone Volt (jimm123@dronevolt.com)
+2025-03-28 09:57:39,461 - INFO - Skipping row for company 'Center for Service of National Police Units of Ukraine' because process flag is not 'yes'.
+2025-03-28 10:10:22,651 - INFO - Email to testing1@gmail.com at google already processed. Skipping.
+2025-03-28 10:10:22,652 - INFO - Email to testing22@gmail.com at google already processed. Skipping.
+2025-03-28 10:10:22,652 - INFO - Email to alexander.wulf@droniq.de at Droniq GmbH already processed. Skipping.
+2025-03-28 10:10:22,652 - INFO - Entering generate_developing_letter function
+2025-03-28 10:10:22,694 - INFO - Prompt for DeepSeek API: 
+Rephrase this letter with a fresh tone.
+
+Generate a formal business letter proposing a partnership.  The letter should be concise (160-230 words).
+
+**Specific Instructions and Context:**
+
+*   **Sender:** Jimmy, Overseas Sales Manager at Skyfend (a subsidiary of Autel).  # Clearly defines the sender.
+*   **Recipient:** Dear Jack  Kleinig, (at Droniq GmbH). # Dynamically includes the recipient and company.
+*   **Company Background:** We've been following Droniq GmbH's development. # Sets a positive tone.
+*   **Skyfend's Global Presence:** Skyfend has exported devices to partners in Africa, Europe, and America. # Establishes credibility.
+*   **Focus:** Emphasize potential cooperation opportunities. # Main purpose of the letter.
+*   **FPV Drone Threats:** Emphasize Skyfend's devices for FPV drone threats and commercial drones (DJI, Autel, Parrot, etc.). # Specific product focus.
+*   **Letter Structure:** Each paragraph should consist of 2-3 sentences. # Controls letter length and readability.
+*   **Call to Action:** Propose a video meeting or call. # Clear next step.
+*   **Attachment:** Mention that a product brochure is attached. # Adds supporting material.
+*   **Subject:** Proposal for Strategic Partnership Between Skyfend and Droniq GmbH  # Informative subject line.
+
+**Cooperation Points:**
+
+**Cooperation Points Between Skyfend (Company A) and Droniq (Company B):**
+
+1. **Integrated Airspace Management Solutions**  
+   - **Synergy:** Integrate Skyfend’s detection tools (e.g., *Skyfend Defender* radar, *Tracer* radio detector) with Droniq’s UTM system to create a unified platform for monitoring **both authorized and unauthorized drones**.  
+   - **Mutual Benefit:** Enhances Droniq’s UTM capabilities with real-time threat detection, while Skyfend gains access to commercial drone traffic data to refine countermeasure accuracy.  
+
+2. **Joint Security & Compliance Training Programs**  
+   - **Synergy:** Develop training modules where Droniq educates clients on safe drone operations, while Skyfend trains on mitigating rogue drone threats (e.g., using *Skyfend Blader* or *Guider* software).  
+   - **Mutual Benefit:** Droniq differentiates its training offerings, and Skyfend expands its market reach to commercial operators needing threat-awareness education.  
+
+3. **Critical Infrastructure Protection Bundles**  
+   - **Synergy:** Combine Droniq’s inspection drones (e.g., for pipelines, power grids) with Skyfend’s C-UAS systems (e.g., *Skyfend Hunter* jammer) to offer clients a dual solution: **secure infrastructure monitoring**.  
+   - **Mutual Benefit:** Cross-selling opportunities for both companies, addressing clients’ operational and security needs in one package.  
+
+4. **Regulatory Advocacy & Compliance Tools**  
+   - **Synergy:** Collaborate on developing standards for drone detection/jamming compliance, leveraging Skyfend’s technical expertise and Droniq’s operational experience.  
+   - **Mutual Benefit:** Strengthens credibility for both in regulatory discussions and attracts clients seeking compliant, vetted solutions.  
+
+5. **Drone Resilience Testing Services**  
+   - **Synergy:** Use Skyfend’s spoofing/jamming tools (e.g., *Skyfend Spoofer*) to stress-test drones managed by Droniq, identifying vulnerabilities and improving robustness.  
+   - **Mutual Benefit:** Droniq offers a premium testing service, while Skyfend gains insights to refine countermeasures against advanced commercial drones.  
+
+**Outcome:** These partnerships position Skyfend as a security enabler for safe drone adoption, while Droniq enhances its value proposition with integrated safety and compliance tools.  # Inserts the identified cooperation points.
+
+**Output Format:**
+
+Return ONLY the body of the letter, formatted using basic HTML. Do *not* include any sender address, date, or recipient address *outside* the letter body. The letter *should* start *directly* with the salutation.
+
+Use the following HTML tags for formatting:
+
+*   `<p>` tags for paragraphs.  Use separate `<p>` tags for each paragraph.
+*   `<br>` for explicit line breaks where needed (e.g., within the address, after the salutation).
+*   `<strong>` or `<b>` tags for bold text (e.g., for key benefits or company names).
+*    If listing cooperation points, use a `<ul>` (unordered list) and `<li>` (list item) tags for each point.
+
+2025-03-28 10:10:23,834 - INFO - HTTP Request: POST https://api.deepseek.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-28 10:10:44,205 - INFO - Raw response from Deepseek: ChatCompletion(id='c702f86f-fecd-4591-bfc2-eb5750c4aea1', choices=[Choice(finish_reason='stop', index=0, logprobs=None, message=ChatCompletionMessage(content='```html\n<p>Dear Jack Kleinig,</p>\n\n<p>We at <strong>Skyfend</strong> have been closely following the impressive developments at <strong>Droniq GmbH</strong> and believe there is significant potential for collaboration between our organizations. As the Overseas Sales Manager at Skyfend, a subsidiary of Autel, I’d like to explore how we can work together to address emerging challenges in the drone industry.</p>\n\n<p>Skyfend has established a strong global presence, exporting our advanced counter-drone solutions to partners across Africa, Europe, and the Americas. Our expertise in mitigating threats from FPV drones and commercial UAVs (DJI, Autel, Parrot, etc.) aligns well with Droniq’s focus on integrated airspace management.</p>\n\n<p>Here are a few key areas where we see opportunities for synergy:</p>\n<ul>\n  <li><strong>Integrated Airspace Solutions:</strong> Combining Skyfend’s detection tools (e.g., <em>Skyfend Defender</em>) with Droniq’s UTM system for comprehensive drone monitoring.</li>\n  <li><strong>Joint Training Programs:</strong> Co-developing modules for safe drone operations and threat mitigation.</li>\n  <li><strong>Critical Infrastructure Bundles:</strong> Offering clients a dual solution of inspection drones and C-UAS protection.</li>\n</ul>\n\n<p>To discuss this further, I propose a video meeting or call at your convenience. A detailed product brochure is attached for your reference.</p>\n\n<p>We look forward to the possibility of partnering with Droniq to create safer and more secure airspace solutions.</p>\n\n<p>Best regards,<br>\nJimmy<br>\nOverseas Sales Manager<br>\nSkyfend</p>\n```', refusal=None, role='assistant', annotations=None, audio=None, function_call=None, tool_calls=None))], created=1743127823, model='deepseek-chat', object='chat.completion', service_tier=None, system_fingerprint='fp_3d5141a69a_prod0225', usage=CompletionUsage(completion_tokens=376, prompt_tokens=1020, total_tokens=1396, completion_tokens_details=None, prompt_tokens_details=PromptTokensDetails(audio_tokens=None, cached_tokens=960), prompt_cache_hit_tokens=960, prompt_cache_miss_tokens=60))
+2025-03-28 10:10:45,462 - INFO - file_cache is only supported with oauth2client<4.0.0
+2025-03-28 10:11:37,794 - INFO - Draft id: r470690428101463121, Draft message: 195da84e496ee03f
+2025-03-28 10:11:37,798 - INFO - Draft saved successfully, ID: r470690428101463121
+2025-03-28 10:11:37,827 - INFO - Processed and saved data for Droniq GmbH (jack.kleinig@droniq.de)
+2025-03-28 10:11:37,828 - INFO - Email to olivier@dronevolt.com at Drone Volt already processed. Skipping.
+2025-03-28 10:11:37,829 - INFO - Entering generate_developing_letter function
+2025-03-28 10:11:37,858 - INFO - Prompt for DeepSeek API: 
+Rephrase this letter with a fresh tone.
+
+Generate a formal business letter proposing a partnership.  The letter should be concise (160-230 words).
+
+**Specific Instructions and Context:**
+
+*   **Sender:** Jimmy, Overseas Sales Manager at Skyfend (a subsidiary of Autel).  # Clearly defines the sender.
+*   **Recipient:** Dear Stefano Valentini, (at Drone Volt). # Dynamically includes the recipient and company.
+*   **Company Background:** We've been following Drone Volt's development. # Sets a positive tone.
+*   **Skyfend's Global Presence:** Skyfend has exported devices to partners in Africa, Europe, and America. # Establishes credibility.
+*   **Focus:** Emphasize potential cooperation opportunities. # Main purpose of the letter.
+*   **FPV Drone Threats:** Emphasize Skyfend's devices for FPV drone threats and commercial drones (DJI, Autel, Parrot, etc.). # Specific product focus.
+*   **Letter Structure:** Each paragraph should consist of 2-3 sentences. # Controls letter length and readability.
+*   **Call to Action:** Propose a video meeting or call. # Clear next step.
+*   **Attachment:** Mention that a product brochure is attached. # Adds supporting material.
+*   **Subject:** Proposal for Strategic Partnership Between Skyfend and Drone Volt  # Informative subject line.
+
+**Cooperation Points:**
+
+**Cooperation Points Between Skyfend (Company A) and DRONE VOLT (Company B):**
+
+1. **Secure Drone Ecosystem Integration**  
+   - **Synergy:** Integrate Skyfend’s **C-UAS recognition protocols** (e.g., Skyfend Defender/Tracer) into DRONE VOLT’s drones to designate them as “authorized” in restricted zones.  
+   - **Mutual Benefit:** DRONE VOLT’s drones avoid disruption by Skyfend’s systems during critical missions (e.g., infrastructure inspections), while Skyfend enhances its value proposition by supporting compliant, secure drone operations.
+
+2. **AI-Driven Threat Detection & Response**  
+   - **Synergy:** Leverage DRONE VOLT’s onboard AI to enhance Skyfend’s **Guider C2 software**, enabling real-time analysis of drone behavior (e.g., identifying hostile patterns) and automating countermeasures via Skyfend Hunter/Blader.  
+   - **Mutual Benefit:** Skyfend gains smarter threat classification, reducing false positives, while DRONE VOLT expands its AI applications into defense markets.
+
+3. **Mobile Counter-Drone Surveillance Networks**  
+   - **Synergy:** Equip DRONE VOLT drones with Skyfend’s **portable detectors (Tracer)** or **jammers (Blader)** to create agile, airborne C-UAS units for monitoring large events or borders.  
+   - **Mutual Benefit:** Skyfend extends its reach with mobile deployment options, while DRONE VOLT diversifies its drone use cases into security roles.
+
+4. **Regulatory Compliance Solutions**  
+   - **Synergy:** Co-develop a **compliance module** combining Skyfend’s GNSS Spoofer with DRONE VOLT’s geofencing AI to enforce no-fly zones autonomously.  
+   - **Mutual Benefit:** DRONE VOLT’s clients meet strict airspace regulations, and Skyfend positions its spoofing tech as a proactive compliance tool for civilian operators.
+
+5. **Joint Training & Certification Programs**  
+   - **Synergy:** Offer bundled training for security teams on operating DRONE VOLT’s surveillance drones alongside Skyfend’s C-UAS systems (e.g., Guider software workflows).  
+   - **Mutual Benefit:** Strengthens client trust in integrated security solutions and creates recurring revenue through certification services.  
+
+**Outcome:** These points bridge Skyfend’s defense-focused C-UAS expertise with DRONE VOLT’s civilian AI-drone capabilities, fostering cross-industry innovation and expanding market access for both.  # Inserts the identified cooperation points.
+
+**Output Format:**
+
+Return ONLY the body of the letter, formatted using basic HTML. Do *not* include any sender address, date, or recipient address *outside* the letter body. The letter *should* start *directly* with the salutation.
+
+Use the following HTML tags for formatting:
+
+*   `<p>` tags for paragraphs.  Use separate `<p>` tags for each paragraph.
+*   `<br>` for explicit line breaks where needed (e.g., within the address, after the salutation).
+*   `<strong>` or `<b>` tags for bold text (e.g., for key benefits or company names).
+*    If listing cooperation points, use a `<ul>` (unordered list) and `<li>` (list item) tags for each point.
+
+2025-03-28 10:11:38,941 - INFO - HTTP Request: POST https://api.deepseek.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-28 10:11:59,195 - INFO - Raw response from Deepseek: ChatCompletion(id='fba1cd4d-5c4a-4f5c-9fad-3e11e7ecc548', choices=[Choice(finish_reason='stop', index=0, logprobs=None, message=ChatCompletionMessage(content='```html\n<p>Dear Stefano Valentini,</p>\n\n<p>We at <strong>Skyfend</strong> have long admired <strong>Drone Volt</strong>’s innovative advancements in drone technology. As the Overseas Sales Manager, I’m excited to explore how our companies could collaborate to create safer and more efficient airspace solutions.</p>\n\n<p>Skyfend, a subsidiary of <strong>Autel</strong>, has established a global footprint by exporting our counter-drone devices to partners across Africa, Europe, and the Americas. Our expertise in mitigating <strong>FPV drone threats</strong> and managing commercial drones (DJI, Autel, Parrot, etc.) aligns well with Drone Volt’s capabilities.</p>\n\n<p>Here are key areas where we see synergy:</p>\n<ul>\n    <li><strong>Secure Drone Ecosystem Integration:</strong> Designating Drone Volt drones as "authorized" in restricted zones via Skyfend’s protocols.</li>\n    <li><strong>AI-Driven Threat Detection:</strong> Enhancing Skyfend’s software with Drone Volt’s AI for real-time behavior analysis.</li>\n    <li><strong>Mobile Surveillance Networks:</strong> Deploying Skyfend’s portable detectors or jammers on Drone Volt drones for agile C-UAS operations.</li>\n</ul>\n\n<p>I’ve attached a product brochure for your review and would welcome the opportunity to discuss this further. Would a video meeting or call next week suit your schedule?</p>\n\n<p>Looking forward to your thoughts.</p>\n\n<p>Best regards,<br>\nJimmy<br>\nOverseas Sales Manager<br>\n<strong>Skyfend</strong></p>\n```', refusal=None, role='assistant', annotations=None, audio=None, function_call=None, tool_calls=None))], created=1743127898, model='deepseek-chat', object='chat.completion', service_tier=None, system_fingerprint='fp_3d5141a69a_prod0225', usage=CompletionUsage(completion_tokens=364, prompt_tokens=1043, total_tokens=1407, completion_tokens_details=None, prompt_tokens_details=PromptTokensDetails(audio_tokens=None, cached_tokens=1024), prompt_cache_hit_tokens=1024, prompt_cache_miss_tokens=19))
+2025-03-28 10:12:00,447 - INFO - file_cache is only supported with oauth2client<4.0.0
+2025-03-28 10:12:30,332 - INFO - Draft id: r8939494801841629249, Draft message: 195da85b20904511
+2025-03-28 10:12:30,336 - INFO - Draft saved successfully, ID: r8939494801841629249
+2025-03-28 10:12:30,360 - INFO - Processed and saved data for Drone Volt (stefano.valentini@dronevolt.com)
+2025-03-28 10:12:30,363 - INFO - Email to jimm123@dronevolt.com at Drone Volt already processed. Skipping.
+2025-03-28 10:12:30,363 - INFO - Skipping row for company 'Center for Service of National Police Units of Ukraine' because process flag is not 'yes'.
+2025-03-28 10:12:30,363 - INFO - Skipping row for company 'nan' because process flag is not 'yes'.
+2025-03-28 10:12:30,363 - INFO - Skipping row for company 'nan' because process flag is not 'yes'.
+2025-03-28 10:12:30,363 - INFO - Skipping row for company 'nan' because process flag is not 'yes'.
+2025-03-28 10:12:30,363 - INFO - Skipping row for company 'nan' because process flag is not 'yes'.
+2025-03-28 10:12:30,363 - INFO - Skipping row for company 'nan' because process flag is not 'yes'.
+2025-03-28 10:12:30,363 - INFO - Skipping row for company 'nan' because process flag is not 'yes'.
+2025-03-28 10:12:30,363 - INFO - Skipping row for company 'nan' because process flag is not 'yes'.
+2025-03-28 10:12:30,363 - INFO - Skipping row for company 'nan' because process flag is not 'yes'.
+2025-03-28 10:12:30,363 - INFO - Skipping row for company 'nan' because process flag is not 'yes'.
+2025-03-28 10:12:30,363 - INFO - Skipping row for company 'nan' because process flag is not 'yes'.
+2025-03-28 10:12:30,363 - INFO - Skipping row for company 'nan' because process flag is not 'yes'.
+2025-03-28 10:12:30,363 - INFO - Skipping row for company 'nan' because process flag is not 'yes'.
+2025-03-28 10:12:30,363 - INFO - Skipping row for company 'nan' because process flag is not 'yes'.
+2025-03-28 10:12:30,363 - INFO - Skipping row for company 'nan' because process flag is not 'yes'.
+2025-03-28 10:12:30,364 - INFO - Skipping row for company 'nan' because process flag is not 'yes'.
+2025-03-28 10:12:30,364 - INFO - Skipping row for company 'nan' because process flag is not 'yes'.
+2025-03-28 10:12:30,364 - INFO - Skipping row for company 'nan' because process flag is not 'yes'.
+2025-03-28 10:12:30,364 - INFO - Skipping row for company 'nan' because process flag is not 'yes'.
+2025-03-28 10:12:30,364 - INFO - Skipping row for company 'nan' because process flag is not 'yes'.
+2025-03-28 10:12:30,364 - INFO - Skipping row for company 'nan' because process flag is not 'yes'.
+2025-03-28 10:12:30,364 - INFO - Skipping row for company 'nan' because process flag is not 'yes'.
+2025-03-28 10:12:30,364 - INFO - Skipping row for company 'nan' because process flag is not 'yes'.
+2025-03-28 10:12:30,364 - INFO - Skipping row for company 'nan' because process flag is not 'yes'.
+2025-03-28 10:12:30,364 - INFO - Skipping row for company 'nan' because process flag is not 'yes'.
+2025-03-28 10:12:30,364 - INFO - Skipping row for company 'nan' because process flag is not 'yes'.
+2025-03-28 10:12:30,364 - INFO - Skipping row for company 'nan' because process flag is not 'yes'.
+2025-03-28 10:12:30,364 - INFO - Skipping row for company 'nan' because process flag is not 'yes'.
+2025-03-28 10:12:30,364 - INFO - Skipping row for company 'nan' because process flag is not 'yes'.
+2025-03-28 10:12:30,364 - INFO - Skipping row for company 'nan' because process flag is not 'yes'.
+2025-03-28 10:12:30,364 - INFO - Skipping row for company 'nan' because process flag is not 'yes'.
+2025-03-28 10:12:30,364 - INFO - Skipping row for company 'nan' because process flag is not 'yes'.
+2025-03-28 10:12:30,364 - INFO - Skipping row for company 'nan' because process flag is not 'yes'.
+2025-03-28 10:12:30,364 - INFO - Skipping row for company 'nan' because process flag is not 'yes'.
+2025-03-28 10:12:30,364 - INFO - Skipping row for company 'nan' because process flag is not 'yes'.
+2025-03-28 10:12:30,365 - INFO - Skipping row for company 'nan' because process flag is not 'yes'.
+2025-03-28 10:12:30,365 - INFO - Skipping row for company 'nan' because process flag is not 'yes'.
+2025-03-28 10:12:30,365 - INFO - Skipping row for company 'nan' because process flag is not 'yes'.
+2025-03-28 10:12:30,365 - INFO - Skipping row for company 'nan' because process flag is not 'yes'.
+2025-03-28 10:12:30,365 - INFO - Skipping row for company 'nan' because process flag is not 'yes'.
+2025-03-28 10:12:30,365 - INFO - Skipping row for company 'nan' because process flag is not 'yes'.
+2025-03-28 10:12:30,365 - INFO - Skipping row for company 'nan' because process flag is not 'yes'.
+2025-03-28 10:12:30,365 - INFO - Skipping row for company 'nan' because process flag is not 'yes'.
+2025-03-28 10:12:30,365 - INFO - Skipping row for company 'nan' because process flag is not 'yes'.
+2025-03-28 10:12:30,365 - INFO - Skipping row for company 'nan' because process flag is not 'yes'.
+2025-03-28 10:12:30,365 - INFO - Skipping row for company 'nan' because process flag is not 'yes'.
+2025-03-28 10:12:30,365 - INFO - Skipping row for company 'nan' because process flag is not 'yes'.
+2025-03-28 10:12:30,365 - INFO - Skipping row for company 'nan' because process flag is not 'yes'.
+2025-03-28 10:12:30,365 - INFO - Skipping row for company 'nan' because process flag is not 'yes'.
+2025-03-28 10:12:30,365 - INFO - Skipping row for company 'nan' because process flag is not 'yes'.
+2025-03-28 10:12:30,365 - INFO - Skipping row for company 'nan' because process flag is not 'yes'.
+2025-03-28 10:12:30,365 - INFO - Skipping row for company 'nan' because process flag is not 'yes'.
+2025-03-28 10:12:30,365 - INFO - Skipping row for company 'nan' because process flag is not 'yes'.
+2025-03-28 10:12:30,365 - INFO - Skipping row for company 'nan' because process flag is not 'yes'.
+2025-03-28 10:12:30,365 - INFO - Skipping row for company 'google' because process flag is not 'yes'.
+2025-03-28 10:12:30,366 - INFO - Skipping row for company 'google' because process flag is not 'yes'.

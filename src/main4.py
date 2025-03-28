@@ -74,10 +74,43 @@ def get_website_content(url, max_content_length=2000):
         return ""
 
 def extract_keywords_from_filename(filename):
-    base = pathlib.Path(filename).stem
-    base = re.sub(r'^[\d\.\s]+', '', base)
-    base = base.replace('_', ' ')
-    keywords = set(base.lower().split())
+    if not filename:
+        return set()
+        
+    # Get the full filename as lower-case
+    keywords = set()
+    keywords.add(filename.lower())
+    
+    if '.' in filename:
+        base, ext = filename.rsplit('.', 1)
+        keywords.add(ext.lower())
+        base_cleaned = re.sub(r'^[\d\.\s\-]+', '', base)
+        words = set()
+        for delimiter in ['_', ' ', '-']:
+            if delimiter in base_cleaned:
+                parts = base_cleaned.split(delimiter)
+                for part in parts:
+                    if part.strip():
+                        words.add(part.strip().lower())
+        if not words:
+            words.add(base_cleaned.lower())
+        keywords.update(words)
+        for word in list(keywords):
+            if '.' in word:
+                part_before_dot = word.split('.')[0].lower()
+                if part_before_dot:
+                    keywords.add(part_before_dot)
+    else:
+        base_cleaned = re.sub(r'^[\d\.\s\-]+', '', filename)
+        for delimiter in ['_', ' ', '-']:
+            if delimiter in base_cleaned:
+                parts = base_cleaned.split(delimiter)
+                for part in parts:
+                    if part.strip():
+                        keywords.add(part.strip().lower())
+        if len(keywords) <= 1:
+            keywords.add(base_cleaned.lower())
+    
     return keywords
 
 def select_relevant_images(email_body, company_name):
@@ -114,6 +147,13 @@ def main():
     skyfend_business = read_skyfend_business(SKYFEND_BUSINESS_DOC_PATH)
 
     for _, row in raw_data.iterrows():
+        # Check the "process" column: only process if its value is "yes" (case-insensitive)
+        process_flag = str(row.get("process", "")).strip().lower()
+        if process_flag != "yes":
+            # Convert company value to string to avoid AttributeError if it's not a string
+            logging.info(f"Skipping row for company '{str(row.get('company', '')).strip()}' because process flag is not 'yes'.")
+            continue
+
         company_name = str(row.get('company', '')).strip()
         recipient_email = str(row.get('recipient_email', '')).strip()
         website = str(row.get('website', '')).strip()
@@ -169,7 +209,7 @@ def main():
         # --- Attachment Setup ---
         attachments = [ATTACHMENT_FILE]
 
-        # Create the MIME email message with inline images and attachment(s)
+        # Create the MIME email message with inline images and attachments.
         email_message = create_email_with_inline_images_and_attachments(
             sender=GMAIL_ACCOUNT,
             recipient=recipient_email,
@@ -179,7 +219,6 @@ def main():
             attachment_paths=attachments
         )
 
-        # --- Save Email Draft ---
         try:
             draft_id = save_email_to_drafts(mime_message=email_message)
             logging.info(f"Draft saved successfully, ID: {draft_id}")
@@ -187,7 +226,6 @@ def main():
             logging.error(f"Failed to save email draft for {recipient_email}: {e}")
             continue
 
-        # --- Update Processed Data ---
         current_time = datetime.now().strftime("%Y/%m/%d %H:%M")
         new_record = {
             'saving_file_time': current_time,
