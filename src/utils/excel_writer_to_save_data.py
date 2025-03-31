@@ -4,14 +4,22 @@ import logging
 import pandas as pd
 from pathlib import Path
 from typing import List
-from dataclasses import asdict, is_dataclass # Import is_dataclass
-from datetime import datetime # Import datetime
+from dataclasses import asdict, is_dataclass
+from datetime import datetime
+# --- Add openpyxl utility import ---
+try:
+    from openpyxl.utils import get_column_letter
+    OPENPYXL_AVAILABLE = True
+except ImportError:
+    OPENPYXL_AVAILABLE = False
+    logging.info("openpyxl not fully available. Column width adjustment will be skipped. Install with `poetry add openpyxl` or `pip install openpyxl`")
+# --- End import ---
+
 # Assuming TargetCompanyData is correctly defined in src.core
 try:
     from src.core import TargetCompanyData
 except ImportError:
     logging.error("Could not import TargetCompanyData from src.core. Ensure src is in PYTHONPATH or structure is correct.")
-    # Provide a fallback or raise a clearer error if core structure is crucial
     TargetCompanyData = None # Basic fallback
 
 logger = logging.getLogger(__name__)
@@ -24,7 +32,7 @@ def save_processed_data(
     """
     Saves the list of processed TargetCompanyData objects to an Excel file.
     Appends data to the file if it exists, otherwise creates a new file.
-    Includes a 'saving_file_time' column for the batch save time.
+    Includes a 'saving_file_time' column and auto-adjusts column widths for headers.
 
     Args:
         processed_companies: List of TargetCompanyData objects processed in the current run.
@@ -48,7 +56,6 @@ def save_processed_data(
 
     # Convert list of dataclass objects to DataFrame
     try:
-        # Use asdict for robust conversion from dataclass instances
         new_data_list = [asdict(company) for company in processed_companies]
         new_df = pd.DataFrame(new_data_list)
     except Exception as e:
@@ -59,42 +66,19 @@ def save_processed_data(
         logger.info("Processed data resulted in an empty DataFrame. Nothing to save.")
         return
 
-    # --- Add saving_file_time column ---
-    # Generate timestamp *once* for this batch
+    # Add saving_file_time column
     current_time_str = datetime.now().strftime("%Y/%m/%d %H:%M:%S")
     new_df['saving_file_time'] = current_time_str
-    # --- End Add saving_file_time column ---
 
-
-    # Define the desired order/subset of columns for the output Excel file
-    # Ensure 'saving_file_time' is first as requested
+    # Define the desired order/subset of columns
     output_columns = [
-        'saving_file_time', # Added first
-        'company_name', 'website', 'recipient_email', 'contact_person',
-        'process_flag', # Store the flag used for the 'should_process' property
-        'target_language', 'main_business',
-        'cooperation_points_str', # Save raw string
-        # 'cooperation_points_list', # Usually skip list/object columns
-        'generated_letter_subject', 'generated_letter_body',
-        'processing_status', 'draft_id'
-        # Add 'should_process' if you want the calculated boolean value saved explicitly
-        # 'should_process'
+        'saving_file_time', 'company_name', 'website', 'recipient_email',
+        'contact_person', 'process_flag', 'target_language', 'main_business',
+        'cooperation_points_str', 'generated_letter_subject',
+        'generated_letter_body', 'processing_status', 'draft_id'
     ]
 
-    # Add 'should_process' property value as a separate column if desired
-    # if 'should_process' in output_columns:
-    #    try:
-    #        # Important: Access property on original objects, not dicts/DataFrame rows
-    #        new_df['should_process'] = [company.should_process for company in processed_companies]
-    #    except Exception as e:
-    #        logger.error(f"Failed to calculate 'should_process' property for saving: {e}")
-    #        # Ensure column exists before trying to drop if calculation fails midway
-    #        if 'should_process' in new_df.columns:
-    #             new_df = new_df.drop(columns=['should_process'], errors='ignore')
-
-
-    # Filter DataFrame to include only desired columns that actually exist in the new data
-    # Make sure saving_file_time is included if it was added successfully
+    # Filter DataFrame to include only desired columns that exist
     columns_to_write = [col for col in output_columns if col in new_df.columns]
     if not columns_to_write:
         logger.error("No valid columns defined in 'output_columns' match the processed data.")
@@ -103,36 +87,25 @@ def save_processed_data(
 
     # --- Append Logic ---
     try:
-        combined_df = new_df_filtered # Start with the new data as default
-        if output_excel_path.exists():
+        combined_df = new_df_filtered # Default to new data
+        file_exists = output_excel_path.exists()
+
+        if file_exists:
             logger.info(f"Reading existing data from: {output_excel_path}")
             try:
                 existing_df = pd.read_excel(output_excel_path, engine='openpyxl')
                 logger.info(f"Found {len(existing_df)} existing records.")
-
-                # --- Column Alignment (Robust Append) ---
+                # Align columns before concatenating
                 existing_cols = set(existing_df.columns)
                 new_cols = set(new_df_filtered.columns)
-                # Use the desired output_columns order as base, add extra existing if any
                 base_cols = [col for col in output_columns if col in existing_cols.union(new_cols)]
                 extra_existing_cols = sorted(list(existing_cols.difference(base_cols)))
-                all_cols_ordered = base_cols + extra_existing_cols # Final column order
-
-                # Reindex both DataFrames
+                all_cols_ordered = base_cols + extra_existing_cols
                 existing_df_aligned = existing_df.reindex(columns=all_cols_ordered)
                 new_df_aligned = new_df_filtered.reindex(columns=all_cols_ordered)
-                # --- End Column Alignment ---
-
                 logger.info(f"Appending {len(new_df_aligned)} new records to existing data.")
                 combined_df = pd.concat([existing_df_aligned, new_df_aligned], ignore_index=True)
-
-                # Optional: Remove duplicates after appending, keeping the latest entry
-                # key_columns = ['recipient_email', 'company_name']
-                # ... (duplicate removal logic as before) ...
-
-            except FileNotFoundError:
-                 logger.info(f"Existing file check passed but read failed. Creating new file.")
-                 combined_df = new_df_filtered
+                # Optional: Duplicate removal logic here...
             except Exception as read_e:
                 logger.error(f"Failed to read/process existing file {output_excel_path}. BACKING UP and overwriting. Error: {read_e}", exc_info=True)
                 try:
@@ -141,13 +114,38 @@ def save_processed_data(
                     logger.info(f"Backed up existing file to {backup_path}")
                 except Exception as backup_e:
                     logger.error(f"Failed to backup existing file {output_excel_path}: {backup_e}")
-                combined_df = new_df_filtered
+                combined_df = new_df_filtered # Fallback to only new data
         else:
             logger.info(f"Creating new results file: {output_excel_path}")
             # combined_df is already set to new_df_filtered
 
-        # --- Write to Excel ---
-        combined_df.to_excel(output_excel_path, index=False, engine='openpyxl')
+        # --- Write to Excel using ExcelWriter for formatting ---
+        sheet_name = 'ProcessedData' # Define a sheet name
+        with pd.ExcelWriter(output_excel_path, engine='openpyxl') as writer:
+            combined_df.to_excel(writer, index=False, sheet_name=sheet_name)
+
+            # --- Auto-adjust column widths ---
+            if OPENPYXL_AVAILABLE:
+                try:
+                    # Access the workbook and worksheet objects
+                    # workbook = writer.book # Not typically needed for column widths
+                    worksheet = writer.sheets[sheet_name]
+
+                    # Iterate through columns and set width based on header length + padding
+                    for i, column_header in enumerate(combined_df.columns):
+                        column_letter = get_column_letter(i + 1) # Get column letter (A, B, C...)
+                        header_length = len(str(column_header))
+                        # Add padding; adjust multiplier/minimum as needed
+                        adjusted_width = (header_length + 2) * 1.1
+                        minimum_width = 10 # Ensure a minimum width
+                        worksheet.column_dimensions[column_letter].width = max(adjusted_width, minimum_width)
+                    logger.info("Adjusted column widths based on headers.")
+                except Exception as fmt_e:
+                     logger.warning(f"Could not auto-adjust column widths: {fmt_e}")
+            else:
+                 logger.warning("openpyxl not fully available, skipping column width adjustment.")
+            # --- End auto-adjust ---
+
         num_new = len(new_df_filtered)
         total_rows = len(combined_df)
         logger.info(f"Successfully saved data. Added {num_new} new records. Total rows in file: {total_rows}. Path: {output_excel_path}")
@@ -157,6 +155,5 @@ def save_processed_data(
     except Exception as e:
         logger.error(f"Failed to save data to Excel file '{output_excel_path}': {e}", exc_info=True)
 
-# Keep the commented-out original function if desired for reference, otherwise remove
-# --- Original save_data_to_excel logic (commented out) ---
+# --- Original commented out code ---
 # ...
