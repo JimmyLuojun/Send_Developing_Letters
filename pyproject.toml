@@ -36,6 +36,7 @@ google-auth-httplib2 = "^0.2.0"  # Authentication helper for Google API
 google-auth-oauthlib = "^1.2.0"  # OAuth helper for Google API
 openpyxl = "^3.1.2"            # Required by pandas for reading/writing .xlsx files
 httpx = "^0.28.1"
+langdetect = "^1.0.9"
 
 [tool.poetry.group.dev.dependencies]
 # Development tools (optional but recommended)

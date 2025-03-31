@@ -4,90 +4,159 @@ import logging
 import pandas as pd
 from pathlib import Path
 from typing import List
-from datetime import datetime
+from dataclasses import asdict, is_dataclass # Import is_dataclass
+from datetime import datetime # Import datetime
 # Assuming TargetCompanyData is correctly defined in src.core
 try:
     from src.core import TargetCompanyData
 except ImportError:
-    # Provide a fallback or raise a clearer error if core structure is crucial
     logging.error("Could not import TargetCompanyData from src.core. Ensure src is in PYTHONPATH or structure is correct.")
-    # Define a dummy class perhaps, or re-raise to halt execution if needed.
-    class TargetCompanyData: pass # Basic fallback
+    # Provide a fallback or raise a clearer error if core structure is crucial
+    TargetCompanyData = None # Basic fallback
 
+logger = logging.getLogger(__name__)
 
+# --- REFINED FUNCTION ---
 def save_processed_data(
-    processed_companies: List[TargetCompanyData],
+    processed_companies: List[TargetCompanyData], # type: ignore
     output_excel_path: Path
 ):
     """
     Saves the list of processed TargetCompanyData objects to an Excel file.
-    Overwrites the file if it exists.
+    Appends data to the file if it exists, otherwise creates a new file.
+    Includes a 'saving_file_time' column for the batch save time.
 
     Args:
-        processed_companies: List of TargetCompanyData objects.
+        processed_companies: List of TargetCompanyData objects processed in the current run.
         output_excel_path: Path object for the output Excel file.
     """
     if not processed_companies:
-        logging.info("No processed company data to save.")
+        logger.info("No new processed company data provided to save.")
         return
 
-    # Define the columns expected in the output Excel
+    # Validate input type
+    if not TargetCompanyData or not all(is_dataclass(item) and isinstance(item, TargetCompanyData) for item in processed_companies):
+         logger.error("save_processed_data expects a list of TargetCompanyData objects.")
+         return
+
+    # Ensure the output directory exists
+    try:
+        output_excel_path.parent.mkdir(parents=True, exist_ok=True)
+    except Exception as e:
+        logger.error(f"Failed to create output directory {output_excel_path.parent}: {e}", exc_info=True)
+        return
+
+    # Convert list of dataclass objects to DataFrame
+    try:
+        # Use asdict for robust conversion from dataclass instances
+        new_data_list = [asdict(company) for company in processed_companies]
+        new_df = pd.DataFrame(new_data_list)
+    except Exception as e:
+        logger.error(f"Failed to convert processed company data to DataFrame: {e}", exc_info=True)
+        return
+
+    if new_df.empty:
+        logger.info("Processed data resulted in an empty DataFrame. Nothing to save.")
+        return
+
+    # --- Add saving_file_time column ---
+    # Generate timestamp *once* for this batch
+    current_time_str = datetime.now().strftime("%Y/%m/%d %H:%M:%S")
+    new_df['saving_file_time'] = current_time_str
+    # --- End Add saving_file_time column ---
+
+
+    # Define the desired order/subset of columns for the output Excel file
+    # Ensure 'saving_file_time' is first as requested
     output_columns = [
-        'saving_file_time',
-        'company_name',
-        'website',
-        'main_business',
-        'recipient_email',
-        'contact_person',
+        'saving_file_time', # Added first
+        'company_name', 'website', 'recipient_email', 'contact_person',
+        'process_flag', # Store the flag used for the 'should_process' property
+        'target_language', 'main_business',
         'cooperation_points_str', # Save raw string
-        'generated_letter_subject',
-        'generated_letter_body',
-        'processing_status',
-        'draft_id'
+        # 'cooperation_points_list', # Usually skip list/object columns
+        'generated_letter_subject', 'generated_letter_body',
+        'processing_status', 'draft_id'
+        # Add 'should_process' if you want the calculated boolean value saved explicitly
+        # 'should_process'
     ]
 
-    # Convert list of objects to list of dictionaries
-    data_to_save = []
-    # Use a single timestamp for all rows in this batch
-    current_time = datetime.now().strftime("%Y/%m/%d %H:%M:%S")
-    for company in processed_companies:
-        # Check if 'company' object has the expected attributes before accessing
-        # This adds robustness if the input list might be inconsistent
-        data_to_save.append({
-            'saving_file_time': current_time,
-            'company_name': getattr(company, 'company_name', None),
-            'website': getattr(company, 'website', None),
-            'main_business': getattr(company, 'main_business', None),
-            'recipient_email': getattr(company, 'recipient_email', None),
-            'contact_person': getattr(company, 'contact_person', None),
-            'cooperation_points_str': getattr(company, 'cooperation_points_str', None),
-            'generated_letter_subject': getattr(company, 'generated_letter_subject', None),
-            'generated_letter_body': getattr(company, 'generated_letter_body', None),
-            'processing_status': getattr(company, 'processing_status', None),
-            'draft_id': getattr(company, 'draft_id', None)
-        })
+    # Add 'should_process' property value as a separate column if desired
+    # if 'should_process' in output_columns:
+    #    try:
+    #        # Important: Access property on original objects, not dicts/DataFrame rows
+    #        new_df['should_process'] = [company.should_process for company in processed_companies]
+    #    except Exception as e:
+    #        logger.error(f"Failed to calculate 'should_process' property for saving: {e}")
+    #        # Ensure column exists before trying to drop if calculation fails midway
+    #        if 'should_process' in new_df.columns:
+    #             new_df = new_df.drop(columns=['should_process'], errors='ignore')
 
-    # Create DataFrame with specified columns
+
+    # Filter DataFrame to include only desired columns that actually exist in the new data
+    # Make sure saving_file_time is included if it was added successfully
+    columns_to_write = [col for col in output_columns if col in new_df.columns]
+    if not columns_to_write:
+        logger.error("No valid columns defined in 'output_columns' match the processed data.")
+        return
+    new_df_filtered = new_df[columns_to_write]
+
+    # --- Append Logic ---
     try:
-        df_to_save = pd.DataFrame(data_to_save, columns=output_columns)
-    except Exception as e:
-        logging.error(f"Failed to create pandas DataFrame: {e}", exc_info=True)
-        return # Cannot proceed without DataFrame
+        combined_df = new_df_filtered # Start with the new data as default
+        if output_excel_path.exists():
+            logger.info(f"Reading existing data from: {output_excel_path}")
+            try:
+                existing_df = pd.read_excel(output_excel_path, engine='openpyxl')
+                logger.info(f"Found {len(existing_df)} existing records.")
 
-    try:
-        # Ensure the output directory exists
-        output_excel_path.parent.mkdir(parents=True, exist_ok=True)
-        # Save the DataFrame to Excel, overwriting the file
-        df_to_save.to_excel(output_excel_path, index=False, engine='openpyxl')
-        # Use len(data_to_save) which is accurate even when DataFrame is mocked
-        logging.info(f"Successfully saved processed data for {len(data_to_save)} companies to {output_excel_path}")
-    except Exception as e:
-        logging.error(f"Failed to save processed data to Excel file '{output_excel_path}': {e}", exc_info=True)
+                # --- Column Alignment (Robust Append) ---
+                existing_cols = set(existing_df.columns)
+                new_cols = set(new_df_filtered.columns)
+                # Use the desired output_columns order as base, add extra existing if any
+                base_cols = [col for col in output_columns if col in existing_cols.union(new_cols)]
+                extra_existing_cols = sorted(list(existing_cols.difference(base_cols)))
+                all_cols_ordered = base_cols + extra_existing_cols # Final column order
 
+                # Reindex both DataFrames
+                existing_df_aligned = existing_df.reindex(columns=all_cols_ordered)
+                new_df_aligned = new_df_filtered.reindex(columns=all_cols_ordered)
+                # --- End Column Alignment ---
+
+                logger.info(f"Appending {len(new_df_aligned)} new records to existing data.")
+                combined_df = pd.concat([existing_df_aligned, new_df_aligned], ignore_index=True)
+
+                # Optional: Remove duplicates after appending, keeping the latest entry
+                # key_columns = ['recipient_email', 'company_name']
+                # ... (duplicate removal logic as before) ...
+
+            except FileNotFoundError:
+                 logger.info(f"Existing file check passed but read failed. Creating new file.")
+                 combined_df = new_df_filtered
+            except Exception as read_e:
+                logger.error(f"Failed to read/process existing file {output_excel_path}. BACKING UP and overwriting. Error: {read_e}", exc_info=True)
+                try:
+                    backup_path = output_excel_path.with_suffix(f".backup_{datetime.now().strftime('%Y%m%d%H%M%S')}.xlsx")
+                    output_excel_path.rename(backup_path)
+                    logger.info(f"Backed up existing file to {backup_path}")
+                except Exception as backup_e:
+                    logger.error(f"Failed to backup existing file {output_excel_path}: {backup_e}")
+                combined_df = new_df_filtered
+        else:
+            logger.info(f"Creating new results file: {output_excel_path}")
+            # combined_df is already set to new_df_filtered
+
+        # --- Write to Excel ---
+        combined_df.to_excel(output_excel_path, index=False, engine='openpyxl')
+        num_new = len(new_df_filtered)
+        total_rows = len(combined_df)
+        logger.info(f"Successfully saved data. Added {num_new} new records. Total rows in file: {total_rows}. Path: {output_excel_path}")
+
+    except ImportError:
+         logger.error("The 'openpyxl' library is required for Excel operations. Please install it.")
+    except Exception as e:
+        logger.error(f"Failed to save data to Excel file '{output_excel_path}': {e}", exc_info=True)
+
+# Keep the commented-out original function if desired for reference, otherwise remove
 # --- Original save_data_to_excel logic (commented out) ---
-# (Keep commented or remove if not needed)
-# import openpyxl
-# from typing import Dict
-# def save_data_to_excel_append_mode(data_dict: Dict[str, any], filename: str):
-#     # ... (original append logic) ...
-#     pass
+# ...

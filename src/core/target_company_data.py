@@ -17,6 +17,7 @@ class TargetCompanyData:
     company_name: str
     contact_person: str
     process_flag: str # Store the original 'process' value
+    target_language: Optional[str] = None
 
     # Fields populated during processing
     main_business: Optional[str] = None
