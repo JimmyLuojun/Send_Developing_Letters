@@ -1,84 +1,118 @@
 # tests/test_main.py
-import os
-import pathlib
-import pandas as pd
+
 import pytest
-from unittest.mock import patch
+from unittest.mock import patch, MagicMock
+from src.main import run_process
 
-# Import the main function from main4.py (the updated module)
-from src.main4 import main
+@pytest.fixture(autouse=True)
+def setup_environment(tmp_path, monkeypatch):
+    monkeypatch.setenv("LOG_LEVEL", "DEBUG")
+    monkeypatch.setenv("DEEPSEEK_API_KEY", "fake_deepseek_key")
+    monkeypatch.setenv("SENDER_EMAIL", "sender@example.com")
+    monkeypatch.setenv("GMAIL_CREDENTIALS_PATH", str(tmp_path / "credentials.json"))
+    monkeypatch.setenv("GMAIL_TOKEN_PATH", str(tmp_path / "token.json"))
 
-@patch('src.main4.extract_company_data')
-@patch('src.main4.read_skyfend_business')
-@patch('src.main4.get_website_content')
-@patch('src.main4.extract_main_business')
-@patch('src.main4.identify_cooperation_points')
-@patch('src.main4.generate_developing_letter')
-@patch('src.main4.save_email_to_drafts')
-@patch.dict(os.environ, {"API_KEY": "fake_api_key", "GMAIL_ACCOUNT": "test@example.com"})
-def test_main_workflow(mock_save_draft, mock_gen_letter,
-                       mock_coop_points, mock_extract_biz, mock_fetch,
-                       mock_read_skyfend, mock_extract_data, monkeypatch, tmp_path):
-    """
-    Test the full workflow using main4.py.
-    Instead of asserting on positional parameters for save_email_to_drafts,
-    we check that it was called with a non-None 'mime_message' keyword argument.
-    """
-    # Setup a dedicated temporary directory for this test.
-    test_dir = tmp_path / "main_test"
-    test_dir.mkdir()
-    
-    raw_excel_file = test_dir / "test_to_read_website.xlsx"
-    skyfend_file = test_dir / "test_main Business of Skyfend.docx"
-    processed_excel_file = test_dir / "processed.xlsx"
-    # Remove processed file if it exists.
-    if processed_excel_file.exists():
-        processed_excel_file.unlink()
-    
-    # Create dummy raw data with expected values.
-    raw_data = pd.DataFrame({
-        "company": ["Test Company"],
-        "recipient_email": ["test@example.com"],
-        "website": ["http://example.com"],
-        "contact person": ["John Doe"]
-    })
-    raw_data.to_excel(raw_excel_file, index=False)
-    
-    # Patch the module-level attributes in main4.py.
-    monkeypatch.setattr("src.main4.RAW_EXCEL_PATH", raw_excel_file)
-    monkeypatch.setattr("src.main4.PROCESSED_EXCEL_PATH", processed_excel_file)
-    skyfend_file.parent.mkdir(parents=True, exist_ok=True)
-    skyfend_file.write_text("dummy content")
-    monkeypatch.setattr("src.main4.SKYFEND_BUSINESS_DOC_PATH", skyfend_file)
-    
-    # Set dummy return values for dependencies.
-    mock_extract_data.return_value = [
-        {'website': 'http://example.com',
-         'recipient_email': 'test@example.com',
-         'company': 'Test Company',
-         'contact person': 'John Doe'}
-    ]
-    mock_read_skyfend.return_value = "Skyfend's business."
-    mock_fetch.return_value = "Website content"
-    mock_extract_biz.return_value = "Test company business."
-    mock_coop_points.return_value = "Cooperation points"
-    mock_gen_letter.return_value = "Generated letter"
-    mock_save_draft.return_value = "draft_id"
-    
-    # Run the workflow.
-    main()
-    
-    # Verify that save_email_to_drafts was called once with a non-None mime_message keyword.
-    assert mock_save_draft.call_count == 1
-    _, kwargs = mock_save_draft.call_args
-    assert 'mime_message' in kwargs, "Expected keyword 'mime_message' not found."
-    assert kwargs['mime_message'] is not None, "mime_message is None."
-    
-    # Verify that the processed Excel file exists and contains the expected data.
-    processed_file = pathlib.Path(processed_excel_file)
-    assert processed_file.exists(), "Processed Excel file was not created."
-    df = pd.read_excel(processed_file)
-    assert not df.empty, "Processed Excel file is empty."
-    row = df.iloc[0]
-    # Expect the company name to match our dummy raw data.
-    assert row['company'] == "Test Company", f"Expected 'Test Company', got '{row['company']}'"
+    (tmp_path / "credentials.json").touch()
+    (tmp_path / "token.json").touch()
+
+    mock_project_root = tmp_path
+    with patch("src.main.PROJECT_ROOT", mock_project_root):
+        (mock_project_root / "config.ini").write_text("""
+[PATHS]
+skyfend_business_doc = skyfend.txt
+company_data_excel = companies.xlsx
+product_brochure_pdf = brochure.pdf
+unified_images_dir = images
+processed_data_excel = processed.xlsx
+
+[EMAIL_DEFAULTS]
+max_images_per_email = 2
+
+[WEBSITE_SCRAPER]
+max_content_length = 3000
+timeout = 10
+
+[API_CLIENT]
+request_timeout = 20
+""")
+
+        (mock_project_root / "skyfend.txt").write_text("Skyfend business description")
+        (mock_project_root / "companies.xlsx").touch()
+        (mock_project_root / "brochure.pdf").touch()
+        images_dir = mock_project_root / "images"
+        images_dir.mkdir()
+        (images_dir / "image1.jpg").touch()
+        (images_dir / "image2.jpg").touch()
+
+        yield
+
+@patch("src.main.read_company_data")
+@patch("src.main.read_skyfend_business")
+@patch("src.main.fetch_website_content")
+@patch("src.main.DeepSeekClient")
+@patch("src.main.DeepSeekLetterGenerator")
+@patch("src.main.select_relevant_images")
+@patch("src.main.create_mime_email")
+@patch("src.main.save_email_to_drafts")
+@patch("src.main.save_processed_data")
+def test_run_process(mock_save_processed, mock_save_drafts, mock_create_email, mock_select_images,
+                     mock_letter_gen, mock_deepseek_client, mock_fetch_content,
+                     mock_read_skyfend, mock_read_company):
+
+    mock_read_skyfend.return_value = "Skyfend business description"
+
+    # Define realistic company mocks
+    test_co = MagicMock()
+    test_co.company_name = "Test Co"
+    test_co.recipient_email = "test@example.com"
+    test_co.website = "http://test.com"
+    test_co.should_process = True
+    test_co.processing_status = None
+
+    skipped_co = MagicMock()
+    skipped_co.company_name = "Skipped Co"
+    skipped_co.recipient_email = "skip@example.com"
+    skipped_co.website = "http://skip.com"
+    skipped_co.should_process = False
+    skipped_co.processing_status = None
+
+    invalid_email_co = MagicMock()
+    invalid_email_co.company_name = "Invalid Email Co"
+    invalid_email_co.recipient_email = "invalidemail"
+    invalid_email_co.website = "http://invalid.com"
+    invalid_email_co.should_process = True
+    invalid_email_co.processing_status = None
+
+    mock_read_company.return_value = [test_co, skipped_co, invalid_email_co]
+
+    mock_fetch_content.return_value = "Test Co website content"
+    mock_deepseek_client.return_value.extract_main_business.return_value = "Test Co Main Business"
+    mock_deepseek_client.return_value.identify_cooperation_points.return_value = "Cooperation points"
+
+    mock_letter_gen.return_value.generate.return_value.body_html = "Generated Letter HTML"
+    mock_letter_gen.return_value.generate.return_value.subject = "Test Letter Subject"
+
+    mock_select_images.return_value = ["image1.jpg", "image2.jpg"]
+
+    mock_create_email.return_value = MagicMock()
+    mock_save_drafts.return_value = "draft_id_123"
+
+    run_process()
+
+    assert mock_read_skyfend.call_count == 1
+    assert mock_read_company.call_count == 1
+    assert mock_fetch_content.call_count == 1  # Only one valid company processed
+    mock_deepseek_client.return_value.extract_main_business.assert_called_once_with("Test Co website content")
+    mock_deepseek_client.return_value.identify_cooperation_points.assert_called_once()
+    mock_letter_gen.return_value.generate.assert_called_once()
+    mock_select_images.assert_called_once()
+    mock_create_email.assert_called_once()
+    mock_save_drafts.assert_called_once()
+    mock_save_processed.assert_called_once()
+
+    processed_companies = mock_save_processed.call_args[0][0]
+    assert len(processed_companies) == 1  # Only successfully processed companies recorded
+
+    test_co.update_status.assert_called_with("Success: Draft ID draft_id_123")
+    skipped_co.update_status.assert_called_with("Skipped: Process flag")
+    invalid_email_co.update_status.assert_called_with("Skipped: Invalid email format")

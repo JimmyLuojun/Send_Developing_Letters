@@ -1,7 +1,160 @@
+# .gitignore
+
+# Secrets and Credentials --- MUST BE IGNORED ---
 .env
-S_D_L_Venv/
-__pycache__/
-*.DS_Store
-data/processed/
-credentials.json
 token.json
+credentials/
+credentials.json # If stored directly in root
+config.ini # Add this if you EVER put secrets in it
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+secrets/
+
+# C extensions
+*.so
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+pip-wheel-metadata/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Git files
+FETCH_HEAD 
+
+# PyInstaller
+# Usually these files are created by PyInstaller in a subdirectory.
+# If you run PyInstaller in the project root, uncomment these:
+# *.manifest
+# *.spec
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.log
+.pytest_cache/
+
+# Translations
+*.mo
+*.pot
+
+# Django stuff:
+*.log
+local_settings.py
+db.sqlite3
+db.sqlite3-journal
+
+# Flask stuff:
+instance/
+.webassets-cache
+
+# Scrapy stuff:
+.scrapy
+
+# Sphinx documentation
+docs/_build/
+
+# PyBuilder
+target/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# IPython
+profile_default/
+ipython_config.py
+
+# PEP 582; used by PDM, Pyflow and potentially other tools.
+__pypackages__/
+
+# Celery stuff
+celerybeat-schedule
+celerybeat.pid
+
+# SageMath parsed files
+*.sage.py
+
+# Environments
+.env/
+env/
+venv/
+.venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Spyder project settings
+.spyderproject
+.spyproject
+
+# Rope project settings
+.ropeproject
+
+# mkdocs documentation
+/site
+
+# mypy
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# Pyre type checker
+.pyre/
+
+# pytype static analyzer
+.pytype/
+
+# Cython debug symbols
+cython_debug/
+
+# VS Code settings folder
+.vscode/
+
+# PyCharm settings folder
+.idea/
+
+# Mac OS finder files
+.DS_Store
+
+# Windows thumbnail cache
+Thumbs.db
+
+# Project-specific ignores
+logs/
+*.log
+data/processed/
+data/raw/image_unified/ # Ignore generated/processed images
+*.xlsx # Ignore generated excel files in data/processed, be specific if needed
+# Example: data/processed/*.xlsx
+# Avoid ignoring the source excel file: !data/raw/test_to_read_website.xlsx

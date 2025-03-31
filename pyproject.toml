@@ -1,32 +1,77 @@
-[project]
-name = "send-developing-letters"
-version = "0.1.0"
-description = "A Python project for generating and sending development letters."
-authors = [
-    { name = "Jimmy", email = "15828061015@163.com" }
-]
-license = { text = "Apache-2.0" }
-readme = "README.md"
-requires-python = ">=3.9,<3.13"  # Updated to support Python 3.12
-dependencies = [
-    "pandas (>=2.2.3,<3.0.0)",
-    "requests (>=2.32.3,<3.0.0)",
-    "python-dotenv (>=1.0.1,<2.0.0)",
-    "urllib3 (>=2.3.0,<3.0.0)",
-    "pillow (>=11.1.0,<12.0.0)",
-    "openai (>=1.66.3,<2.0.0)",
-    "google-auth (>=2.38.0,<3.0.0)",
-    "google-auth-oauthlib (>=1.2.1,<2.0.0)",
-    "google-api-python-client (>=2.164.0,<3.0.0)",
-    "python-docx (>=1.1.2,<2.0.0)",
-    "openpyxl (>=3.1.5,<4.0.0)",
-    "socksio (>=1.0.0,<2.0.0)"
-]
-packages = [{ include = "send_developing_letters", from = "src" }]
-
-[build-system]
-requires = ["poetry-core>=2.0.0,<3.0.0"]
-build-backend = "poetry.core.masonry.api"
+# pyproject.toml
 
 [tool.poetry]
-package-mode = false
+name = "send-developing-letters" # Choose a PyPI-compatible name if publishing
+version = "0.1.0" # Initial version
+description = "Automates the process of generating and saving personalized business development email drafts."
+authors = ["Your Name <jimluoggac@gmail.com>"] # Replace with your details
+license = "MIT" # Choose an appropriate license (e.g., MIT, Apache-2.0) or omit if private
+readme = "README.md"
+
+
+keywords = ["automation", "email", "business development", "llm", "gmail"]
+classifiers = [ # Optional: PyPI classifiers
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9", # Specify supported Python versions
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "License :: OSI Approved :: MIT License", # Match license above
+    "Operating System :: OS Independent",
+    "Intended Audience :: Developers",
+    "Topic :: Communications :: Email",
+]
+packages = [{include = "src"}] # Tell Poetry where the source code is
+
+[tool.poetry.dependencies]
+python = "^3.9" # Specify compatible Python versions (e.g., 3.9+)
+
+# Core Libraries identified from the code
+python-docx = "^1.1.2"         # For reading .docx files
+pandas = "^2.2.2"              # For reading/writing Excel files
+openai = "^1.23.6"             # For interacting with DeepSeek (or OpenAI compatible APIs)
+requests = "^2.31.0"           # For making HTTP requests (website scraper, maybe APIs)
+python-dotenv = "^1.0.1"       # For loading .env files
+google-api-python-client = "^2.128.0" # Google API client library (for Gmail)
+google-auth-httplib2 = "^0.2.0"  # Authentication helper for Google API
+google-auth-oauthlib = "^1.2.0"  # OAuth helper for Google API
+openpyxl = "^3.1.2"            # Required by pandas for reading/writing .xlsx files
+httpx = "^0.28.1"
+
+[tool.poetry.group.dev.dependencies]
+# Development tools (optional but recommended)
+pytest = "^8.1.1"              # For running tests
+pytest-cov = "^5.0.0"          # For measuring test coverage
+ruff = "^0.3.7"                # Fast linter and formatter (replaces flake8, isort, black sometimes)
+# OR individual tools:
+# flake8 = "^7.0.0"            # Linter
+# black = "^24.3.0"            # Formatter
+# isort = "^5.13.2"            # Import sorter
+mypy = "^1.9.0"                # Static type checker
+pytest-mock = "^3.14.0"
+requests-mock = "^1.12.1"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+# --- Optional: Tool Configurations ---
+# Example using Ruff
+# [tool.ruff]
+# line-length = 88
+# select = ["E", "W", "F", "I", "UP"] # Example rules: pycodestyle errors/warnings, pyflakes, isort, pyupgrade
+# ignore = ["E501"] # Example: ignore line length errors if using black
+
+# Example for pytest
+# [tool.pytest.ini_options]
+# minversion = "6.0"
+# addopts = "-ra -q"
+# testpaths = [
+#     "tests",
+# ]
+
+# Example for mypy
+# [tool.mypy]
+# python_version = "3.9"
+# warn_return_any = true
+# warn_unused_configs = true
+# ignore_missing_imports = true # Start with true, gradually reduce
